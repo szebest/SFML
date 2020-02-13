@@ -1,8 +1,8 @@
-#include <SFML/Graphics.hpp>
-
-using namespace std;
+#include "user.h"
+#include "network.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Client");
+	
+	return 0;
 }
