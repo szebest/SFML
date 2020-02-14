@@ -61,124 +61,129 @@ void Server::run()
 						std::cout << "User tried to connect but the server was full" << std::endl;
 					}
 				}
-				else
+			}
+			else
+			{
+				//Odbieraj dane
+				for (unsigned int i = 0; i < userList.size(); i++)
 				{
-					//Odbieraj dane
-					for (unsigned int i = 0; i < userList.size(); i++)
+					if (m_selector.isReady(*userList[i].getSocket()))
 					{
-						if (m_selector.isReady(*userList[i].getSocket()))
+						sf::Packet received;
+						if (userList[i].getSocket()->receive(received) == sf::Socket::Done)
 						{
-							sf::Packet received;
-							if (userList[i].getSocket()->receive(received) == sf::Socket::Done)
+							userList[i].setTimeout(zegar.getElapsedTime());
+
+							int num, id;
+							received >> num;
+							received >> id;
+
+							std::cout << num << " " << id << std::endl;
+
+							if (num == 1) // u¿ytkownik siê roz³¹czy³. Wyœlij informacje innym u¿ytkownikom
 							{
-								userList[i].setTimeout(zegar.getElapsedTime());
 
-								int num, id;
-								received >> num;
-								received >> id;
-
-								if (num == 1) // u¿ytkownik siê roz³¹czy³. Wyœlij informacje innym u¿ytkownikom
-								{
-
-									sendPacket(received, i);
-									sf::Packet serverPacket, serverPacket2, serverPacket3;
-
-									for (auto& itr : userList)
-									{
-										if (itr.getId() == id)
-										{
-											std::cout << std::endl << "Client disconnected!" << std::endl;
-											std::cout << "	ID: " << itr.getId() << " Name: " << itr.getName() << std::endl;
-											serverPacket << 11;
-											serverPacket << itr.getId();
-											serverPacket << "Client disconnected!";
-											serverPacket2 << 11;
-											serverPacket2 << itr.getId();
-											serverPacket2 << "ID: " + to_string(itr.getId()) + " Name: " + itr.getName();
-										}
-									}
-									std::cout << "Number of players: " << m_playerNumber << std::endl;
-									serverPacket3 << 11 << id << "Number of players: " + to_string(m_playerNumber);
-									m_selector.remove(*userList[i].getSocket());
-									userList.erase(userList.begin() + i);
-									m_playerNumber--;
-									sendPacket(serverPacket);
-									sendPacket(serverPacket2);
-									sendPacket(serverPacket3);
-									break;
-								}
-
-								else if (num == PacketType::MessageSent) //Ktoœ wys³a³ wiadomoœæ
-								{
-									for (unsigned int k = 0; k < userList.size(); k++)
-									{
-										sendPacket(received);
-										std::string messageSent;
-										std::cout << "Sent: " << (received >> messageSent) << std::endl;
-
-									}
-								}
-								else if (num == PacketType::SaveName) //Save player name
-								{
-									sf::Packet serverPacket, serverPacket2, serverPacket3;
-
-									if (userList[i].getId() == id)
-									{
-										std::string nameHolder;
-										received >> nameHolder;
-										userList[i].setName(nameHolder);
-										std::cout << std::endl << std::endl << "New client added." << std::endl;
-										std::cout << "	ID: " << id << " Name: " << nameHolder << std::endl;
-										std::cout << "Number of players: " << m_playerNumber << std::endl;
-										serverPacket << 11 << id << "New client added";
-										serverPacket2 << 11 << id << "ID: " + to_string(id) + " Name: " + nameHolder;
-										serverPacket3 << 11 << id << "Number of players: " + to_string(m_playerNumber);
-										sendPacket(serverPacket);
-										sendPacket(serverPacket2);
-										sendPacket(serverPacket3);
-									}
-								}
-								else if (num == PacketType::SendClientList) //send client list with id and names  When player recive this it goes through the list and compares it with its list, if he finds a number that he doesn't have he creates a enemy with that id
-								{
-									sf::Packet namePacket;
-									namePacket << PacketType::SendClientList;
-									namePacket << 0;
-									namePacket << m_playerNumber;
-
-									for (unsigned int j = 0; j < userList.size(); ++j)
-									{
-										namePacket << userList[j].getId();
-										namePacket << userList[j].getName();
-									}
-
-									sendPacket(namePacket);
-								}
-							}
-
-
-
-							//If some player time-out-ed alert other players
-							float tempTime = zegar.getElapsedTime().asSeconds() - userList[i].getTimeout().asSeconds();
-							if (tempTime >= 5)
-							{
-								sf::Packet timeOutPacket;
-								timeOutPacket << 2;
-								timeOutPacket << userList[i].getId();
-
-								std::cout << "Player: " << userList[i].getId() << " timeouted" << std::endl;
 								sendPacket(received, i);
-								sf::Packet disconnectPacket;
-								disconnectPacket << 1;
-								disconnectPacket << userList[i].getId();
-								sendPacketSingle(disconnectPacket, i);
+								sf::Packet serverPacket, serverPacket2, serverPacket3;
 
+								for (auto& itr : userList)
+								{
+									if (itr.getId() == id)
+									{
+										std::cout << std::endl << "Client disconnected!" << std::endl;
+										std::cout << "	ID: " << itr.getId() << " Name: " << itr.getName() << std::endl;
+										serverPacket << 11;
+										serverPacket << itr.getId();
+										serverPacket << "Client disconnected!";
+										serverPacket2 << 11;
+										serverPacket2 << itr.getId();
+										serverPacket2 << "ID: " + to_string(itr.getId()) + " Name: " + itr.getName();
+									}
+								}
+								std::cout << "Number of players: " << m_playerNumber << std::endl;
+								serverPacket3 << 11 << id << "Number of players: " + to_string(m_playerNumber);
 								m_selector.remove(*userList[i].getSocket());
 								userList.erase(userList.begin() + i);
 								m_playerNumber--;
+								sendPacket(serverPacket);
+								sendPacket(serverPacket2);
+								sendPacket(serverPacket3);
 								break;
 							}
-						} // end of player socket is ready
-					}
+
+							else if (num == PacketType::MessageSent) //Ktoœ wys³a³ wiadomoœæ
+							{
+								for (unsigned int k = 0; k < userList.size(); k++)
+								{
+									sf::Packet wiadomosc;
+									wiadomosc << num << id;
+									char messageSent[100];
+									received >> messageSent;
+									wiadomosc << messageSent;
+									sendPacket(wiadomosc);
+									std::cout << "Sent: " << messageSent << std::endl;
+								}
+							}
+							else if (num == PacketType::SaveName) //Save player name
+							{
+								sf::Packet serverPacket, serverPacket2, serverPacket3;
+
+								if (userList[i].getId() == id)
+								{
+									char nameHolder[100];
+									received >> nameHolder;
+									userList[i].setName(nameHolder);
+									std::cout << std::endl << std::endl << "New client added." << std::endl;
+									std::cout << "	ID: " << id << " Name: " << nameHolder << std::endl;
+									std::cout << "Number of players: " << m_playerNumber << std::endl;
+									serverPacket << 11 << id << "New client added";
+									//serverPacket2 << 11 << id << "ID: " + to_string(id) + " Name: " + nameHolder;
+									//serverPacket3 << 11 << id << "Number of players: " + to_string(m_playerNumber);
+									sendPacket(serverPacket);
+									//sendPacket(serverPacket2);
+									//sendPacket(serverPacket3);
+								}
+							}
+							else if (num == PacketType::SendClientList) //send client list with id and names  When player recive this it goes through the list and compares it with its list, if he finds a number that he doesn't have he creates a enemy with that id
+							{
+								sf::Packet namePacket;
+								namePacket << PacketType::SendClientList;
+								namePacket << 0;
+								namePacket << m_playerNumber;
+
+								for (unsigned int j = 0; j < userList.size(); ++j)
+								{
+									namePacket << userList[j].getId();
+									namePacket << userList[j].getName().c_str();
+								}
+
+								sendPacket(namePacket);
+							}
+						}
+
+
+
+						//If some player time-out-ed alert other players
+						float tempTime = zegar.getElapsedTime().asSeconds() - userList[i].getTimeout().asSeconds();
+						if (tempTime >= 5)
+						{
+							sf::Packet timeOutPacket;
+							timeOutPacket << 2;
+							timeOutPacket << userList[i].getId();
+
+							std::cout << "Player: " << userList[i].getId() << " timeouted" << std::endl;
+							sendPacket(received, i);
+							sf::Packet disconnectPacket;
+							disconnectPacket << 1;
+							disconnectPacket << userList[i].getId();
+							sendPacketSingle(disconnectPacket, i);
+
+							m_selector.remove(*userList[i].getSocket());
+							userList.erase(userList.begin() + i);
+							m_playerNumber--;
+							break;
+						}
+					} // end of player socket is ready
 				}
 			}
 		}

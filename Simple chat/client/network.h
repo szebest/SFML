@@ -18,6 +18,9 @@ public:
 	void getPlayerList(User* p);
 	bool getConnected();
 
+	bool getReceivedMessage() { return hasReceivedMessage; }
+	void setReceivedMessage(bool wartosc) { hasReceivedMessage = wartosc; }
+
 	std::string getMessage() { return m_textMessage; }
 
 private:
@@ -25,6 +28,7 @@ private:
 	bool m_connected;
 
 	std::string m_textMessage;
+	bool hasReceivedMessage;
 	int packetCounter = 0;
 	sf::Clock packetClock;
 	bool connected;

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <SFML/Network.hpp>
 
-Network::Network(sf::IpAddress& ip, unsigned short& port) : m_connected(false)
+Network::Network(sf::IpAddress& ip, unsigned short& port) : m_connected(false), hasReceivedMessage(false)
 {
 	connected = false;
 	if (connection.connect(ip, port, sf::seconds(2)) != sf::Socket::Done) {
@@ -37,9 +37,9 @@ void Network::disconnect(User* p) //Rozlacz gracza z serwerem
 void Network::sendMessage(User* p, std::string& text)
 {
 	sf::Packet temp;
-	temp << 5;
+	temp << PacketType::MessageSent;
 	temp << p->getID();
-	temp << text;
+	temp << text.c_str();
 
 	if (connection.send(temp) != sf::Socket::Done)
 	{
@@ -53,7 +53,7 @@ void Network::sendMyName(User* p)
 	sf::Packet temp;
 	temp << PacketType::SendName;
 	temp << p->getID();
-	temp << "kappa";
+	temp << p->getName().c_str();
 
 	if (connection.send(temp) != sf::Socket::Done)
 	{
@@ -65,7 +65,7 @@ void Network::sendMyName(User* p)
 void Network::getPlayerList(User* p)
 {
 	sf::Packet temp;
-	temp << 7;
+	temp << PacketType::GetClientList;
 	temp << p->getID();
 
 	if (connection.send(temp) != sf::Socket::Done)
@@ -115,27 +115,23 @@ void Network::receive(std::vector<std::unique_ptr<OtherUsers>>& otherUsers, User
 		{
 			std::cout << "Server is full" << std::endl;
 		}
-		else if (type == 5) //otrzymano nowa wiadomosc
+		else if (type == PacketType::MessageSent) //otrzymano nowa wiadomosc
 		{
-			std::string receivedMessage;
-			receivePacket >> receivedMessage;
+			char rMessage[100];
+			receivePacket >> rMessage;
+			std::string receivedMessage(rMessage);
 
-			if (!receivedMessage.empty())
+			std::string senderName;
+			for (unsigned int k = 0; k < otherUsers.size(); k++)
 			{
-				std::string senderName;
-				for (unsigned int k = 0; k < otherUsers.size(); k++)
-				{
-					if (otherUsers[k]->getID() == id)
-						senderName = otherUsers[k]->getName();
-				}
-				if (id == p->getID())
-					senderName = p->getName();
-				std::string testMessage(receivedMessage);
-				std::string newString = testMessage.substr(0, testMessage.length() - 1);
-				m_textMessage = senderName + ":" + newString;
+				if (otherUsers[k]->getID() == id)
+					senderName = otherUsers[k]->getName();
 			}
+			if (id == p->getID())
+				senderName = p->getName();
+			m_textMessage = senderName + " : " + receivedMessage;
 
-
+			hasReceivedMessage = true;
 		}
 
 		else if (type == 7) //Utworz nowych uzytkownikow
