@@ -100,8 +100,8 @@ void Server::run()
 										serverPacket2 << "ID: " + to_string(itr.getId()) + " Name: " + itr.getName();
 									}
 								}
-								std::cout << "Number of players: " << m_playerNumber << std::endl;
-								serverPacket3 << 11 << id << "Number of players: " + to_string(m_playerNumber);
+								std::cout << "Number of users: " << m_playerNumber << std::endl;
+								serverPacket3 << 11 << id << "Number of users: " + to_string(m_playerNumber);
 								m_selector.remove(*userList[i].getSocket());
 								userList.erase(userList.begin() + i);
 								m_playerNumber--;
@@ -113,16 +113,13 @@ void Server::run()
 
 							else if (num == PacketType::MessageSent) //Ktoœ wys³a³ wiadomoœæ
 							{
-								for (unsigned int k = 0; k < userList.size(); k++)
-								{
-									sf::Packet wiadomosc;
-									wiadomosc << num << id;
-									char messageSent[100];
-									received >> messageSent;
-									wiadomosc << messageSent;
-									sendPacket(wiadomosc);
-									std::cout << "Sent: " << messageSent << std::endl;
-								}
+								sf::Packet wiadomosc;
+								wiadomosc << num << id;
+								char messageSent[100];
+								received >> messageSent;
+								wiadomosc << messageSent;
+								sendPacket(wiadomosc, id);
+								std::cout << "Sent: " << messageSent << std::endl;
 							}
 							else if (num == PacketType::SaveName) //Save player name
 							{
@@ -155,6 +152,8 @@ void Server::run()
 								{
 									namePacket << userList[j].getId();
 									namePacket << userList[j].getName().c_str();
+
+									std::cout << userList[j].getName() << std::endl;
 								}
 
 								sendPacket(namePacket);

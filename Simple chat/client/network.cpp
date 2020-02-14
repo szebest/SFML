@@ -4,18 +4,24 @@
 #include <iostream>
 #include <SFML/Network.hpp>
 
-Network::Network(sf::IpAddress& ip, unsigned short& port) : m_connected(false), hasReceivedMessage(false)
+Network::Network(sf::IpAddress& ip, unsigned short& port) : connected(false), m_connected(false), hasReceivedMessage(false)
 {
-	connected = false;
-	if (connection.connect(ip, port, sf::seconds(2)) != sf::Socket::Done) {
-		std::cout << "Error connecting to server" << std::endl;
-		connected = false;
+	while (!connected)
+	{
+		if (connection.connect(ip, port, sf::seconds(2)) != sf::Socket::Done) {
+			std::cout << "Error connecting to server" << std::endl;
+			connected = false;
+			std::cout << "Retrying after 5 seconds" << std::endl;
+			sf::sleep(sf::milliseconds(5000));
+			std::cout << "Trying to connect" << std::endl;
+		}
+		else {
+			connection.setBlocking(false);
+			std::cout << "Connected" << std::endl;
+			connected = true;
+		}
 	}
-	else {
-		connection.setBlocking(false);
-		std::cout << "Connected" << std::endl;
-		connected = true;
-	}
+	system("cls");
 }
 
 void Network::disconnect(User* p) //Rozlacz gracza z serwerem
@@ -134,18 +140,18 @@ void Network::receive(std::vector<std::unique_ptr<OtherUsers>>& otherUsers, User
 			hasReceivedMessage = true;
 		}
 
-		else if (type == 7) //Utworz nowych uzytkownikow
+		else if (type == PacketType::GetClientList) //Utworz nowych uzytkownikow
 		{
 			int playerNumber;
 			std::vector<std::string> playersName;
 			std::vector<int> playersId;
 
 			receivePacket >> playerNumber;
-			std::cout << "Num of players on server: " << playerNumber << std::endl;
+			std::cout << "Num of users on server: " << playerNumber << std::endl;
 
 			for (int i = 0; i < playerNumber; ++i)
 			{
-				std::string tempName;
+				char tempName[100];
 				int tempId;
 				receivePacket >> tempId;
 				receivePacket >> tempName;

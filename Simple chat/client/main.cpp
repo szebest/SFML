@@ -3,7 +3,6 @@
 #include "otherUsers.h"
 #include <iostream>
 #include <SFML/System/Thread.hpp>
-#include <SFML/System/Clock.hpp>
 
 std::vector<std::unique_ptr<OtherUsers>> otherUsers;
 std::unique_ptr<Network> network;
@@ -21,22 +20,34 @@ void receivedThread()
 			std::cout << network->getMessage() << std::endl;
 		}
 
-		sf::sleep(sf::milliseconds(50));
+		sf::sleep(sf::milliseconds(100)); //Zeby server nie zostal przeciazony niepotrzebnymi requestami dalejmy opoznienie na ten watek
 	}
 }
 
-int main()
+void init()
 {
-	sf::Thread watek(&receivedThread);
 	std::cout << "Set your name: ";
 	std::string name;
 	std::cin >> name;
 	user.setName(name);
+}
+
+int main()
+{
+	//Przygotowujemy watek ktory bedzie odbieral pakiety
+	sf::Thread watek(&receivedThread);
+
+	init();
+
+	//Inicjalizujemy polaczenie
 	sf::IpAddress ip = "localhost";
 	unsigned short port = 45000;
 	network = std::make_unique<Network>(ip, port);
-	std::string message = "";
+
 	watek.launch();
+
+	std::string message = "";
+	//Glowna petla ktora pobiera i wysyla wiadomosci
 	while (network->getConnected())
 	{
 		std::cin >> message;
