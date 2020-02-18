@@ -9,7 +9,7 @@ Server::Server()
 	m_currentID = 0;
 	m_playerNumber = 0;
 
-	m_ipAdress = "localhost";
+	m_ipAdress = m_ipAdress.getPublicAddress();
 	m_isRunning = true;
 	m_port = 45000;
 
@@ -78,8 +78,6 @@ void Server::run()
 							received >> num;
 							received >> id;
 
-							std::cout << num << " " << id << std::endl;
-
 							if (num == 1) // u¿ytkownik siê roz³¹czy³. Wyœlij informacje innym u¿ytkownikom
 							{
 
@@ -130,9 +128,10 @@ void Server::run()
 									char nameHolder[100];
 									received >> nameHolder;
 									userList[i].setName(nameHolder);
-									std::cout << std::endl << std::endl << "New client added." << std::endl;
+									std::cout << std::endl << "Incomming connection from: " << userList[i].getSocket()->getRemoteAddress() << std::endl;
+									std::cout << std::endl << "New client added." << std::endl;
 									std::cout << "	ID: " << id << " Name: " << nameHolder << std::endl;
-									std::cout << "Number of players: " << m_playerNumber << std::endl;
+									std::cout << "Number of users: " << m_playerNumber << std::endl;
 									serverPacket << 11 << id << "New client added";
 									//serverPacket2 << 11 << id << "ID: " + to_string(id) + " Name: " + nameHolder;
 									//serverPacket3 << 11 << id << "Number of players: " + to_string(m_playerNumber);
@@ -152,8 +151,6 @@ void Server::run()
 								{
 									namePacket << userList[j].getId();
 									namePacket << userList[j].getName().c_str();
-
-									std::cout << userList[j].getName() << std::endl;
 								}
 
 								sendPacket(namePacket);
@@ -173,7 +170,7 @@ void Server::run()
 							std::cout << "Player: " << userList[i].getId() << " timeouted" << std::endl;
 							sendPacket(received, i);
 							sf::Packet disconnectPacket;
-							disconnectPacket << 1;
+							disconnectPacket << PacketType::Disconnected;
 							disconnectPacket << userList[i].getId();
 							sendPacketSingle(disconnectPacket, i);
 

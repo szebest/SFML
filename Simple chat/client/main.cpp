@@ -40,7 +40,7 @@ int main()
 	init();
 
 	//Inicjalizujemy polaczenie
-	sf::IpAddress ip = "localhost";
+	sf::IpAddress ip = ip.getPublicAddress();
 	unsigned short port = 45000;
 	network = std::make_unique<Network>(ip, port);
 
