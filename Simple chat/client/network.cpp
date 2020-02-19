@@ -93,7 +93,7 @@ void Network::receive(std::vector<std::unique_ptr<OtherUsers>>& otherUsers, User
 		receivePacket >> type;
 		receivePacket >> id;
 
-		if (type == 0) //polaczono sie z serwerem, otrzymanie swojego ID
+		if (type == PacketType::Connected) //polaczono sie z serwerem, otrzymanie swojego ID
 		{
 			if (p->getID() == -1)
 			{
@@ -105,19 +105,18 @@ void Network::receive(std::vector<std::unique_ptr<OtherUsers>>& otherUsers, User
 			}
 			m_connected = true;
 		}
-		else if (type == 1) //rozlaczono
+		else if (type == PacketType::Disconnected) //ktos sie rozlaczyl
 		{
 			for (unsigned int i = 0; i < otherUsers.size(); i++)
 			{
 				if (otherUsers[i]->getID() == id)
 				{
-					m_textMessage = "Player " + otherUsers[i]->getName() + " disconnected.";
-					std::cout << "Enemy: " << otherUsers[i]->getID() << " deleted " << std::endl;
+					std::cout << "User " + otherUsers[i]->getName() + " disconnected." << std::endl;
 					otherUsers.erase(otherUsers.begin() + i);
 				}
 			}
 		}
-		else if (type == 2)
+		else if (type == PacketType::ServerFull)
 		{
 			std::cout << "Server is full" << std::endl;
 		}
@@ -164,7 +163,7 @@ void Network::receive(std::vector<std::unique_ptr<OtherUsers>>& otherUsers, User
 			for (unsigned int i = 0; i < playersId.size(); ++i) //loop through id-s we got
 			{
 				bool haveThatUser = false;
-				for (unsigned int v = 0; v < otherUsers.size(); v++) //check if we already have enemy with that id
+				for (unsigned int v = 0; v < otherUsers.size(); v++) //check if we already have user with that id
 				{
 					if (otherUsers[v]->getID() == playersId[i])
 					{
@@ -172,11 +171,11 @@ void Network::receive(std::vector<std::unique_ptr<OtherUsers>>& otherUsers, User
 					}
 
 				}
-				if (playersId[i] != p->getID() && !haveThatUser) //if it is not our id and if we dont have that enemy, create a new enemy with that id
+				if (playersId[i] != p->getID() && !haveThatUser) //if it is not our id and if we dont have that user, create a new user with that id
 				{
 					otherUsers.push_back(std::make_unique<OtherUsers>(playersId[i], playersName[i]));
 					m_textMessage = "New player connected: " + playersName[i];
-					std::cout << "Created a new enemy with id: " << playersId[i] << std::endl;
+					std::cout << "Created a new user with id: " << playersId[i] << std::endl;
 
 				}
 			}

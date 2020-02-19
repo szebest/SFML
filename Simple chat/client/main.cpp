@@ -53,5 +53,8 @@ int main()
 		std::cin >> message;
 		network->sendMessage(&user, message);
 	}
+
+	network->disconnect(&user);
+
 	return 0;
 }

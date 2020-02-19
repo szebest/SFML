@@ -78,11 +78,10 @@ void Server::run()
 							received >> num;
 							received >> id;
 
-							if (num == 1) // u¿ytkownik siê roz³¹czy³. Wyœlij informacje innym u¿ytkownikom
+							if (num == PacketType::Disconnected) // u¿ytkownik siê roz³¹czy³. Wyœlij informacje innym u¿ytkownikom
 							{
 
 								sendPacket(received, i);
-								sf::Packet serverPacket, serverPacket2, serverPacket3;
 
 								for (auto& itr : userList)
 								{
@@ -90,22 +89,13 @@ void Server::run()
 									{
 										std::cout << std::endl << "Client disconnected!" << std::endl;
 										std::cout << "	ID: " << itr.getId() << " Name: " << itr.getName() << std::endl;
-										serverPacket << 11;
-										serverPacket << itr.getId();
-										serverPacket << "Client disconnected!";
-										serverPacket2 << 11;
-										serverPacket2 << itr.getId();
-										serverPacket2 << "ID: " + to_string(itr.getId()) + " Name: " + itr.getName();
 									}
 								}
+								m_playerNumber--;
+
 								std::cout << "Number of users: " << m_playerNumber << std::endl;
-								serverPacket3 << 11 << id << "Number of users: " + to_string(m_playerNumber);
 								m_selector.remove(*userList[i].getSocket());
 								userList.erase(userList.begin() + i);
-								m_playerNumber--;
-								sendPacket(serverPacket);
-								sendPacket(serverPacket2);
-								sendPacket(serverPacket3);
 								break;
 							}
 
@@ -163,16 +153,12 @@ void Server::run()
 						float tempTime = zegar.getElapsedTime().asSeconds() - userList[i].getTimeout().asSeconds();
 						if (tempTime >= 5)
 						{
-							sf::Packet timeOutPacket;
-							timeOutPacket << 2;
-							timeOutPacket << userList[i].getId();
+							sf::Packet disconnectPacket;
+							disconnectPacket << PacketType::Disconnected << userList[i].getId();
+
+							sendPacket(disconnectPacket, i);
 
 							std::cout << "Player: " << userList[i].getId() << " timeouted" << std::endl;
-							sendPacket(received, i);
-							sf::Packet disconnectPacket;
-							disconnectPacket << PacketType::Disconnected;
-							disconnectPacket << userList[i].getId();
-							sendPacketSingle(disconnectPacket, i);
 
 							m_selector.remove(*userList[i].getSocket());
 							userList.erase(userList.begin() + i);
@@ -190,7 +176,7 @@ void Server::sendPacket(sf::Packet& packet, const int& skip)
 {
 	for (unsigned int i = 0; i < userList.size(); ++i)
 	{
-		if (skip == i)
+		if (skip == userList[i].getId())
 			continue;
 		if (userList[i].getSocket()->send(packet) != sf::Socket::Done)
 		{
