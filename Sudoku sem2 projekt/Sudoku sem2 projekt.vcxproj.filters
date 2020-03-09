@@ -15,8 +15,41 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="main.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="arial.ttf">
+      <Filter>Pliki zasobów</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="csfml-audio-2.dll">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="csfml-graphics-2.dll">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="csfml-network-2.dll">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="csfml-system-2.dll">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="csfml-window-2.dll">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="fragmentshader.frag">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="save.dat">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="sudoku-blankgrid.png">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
   </ItemGroup>
 </Project>
