@@ -8,7 +8,7 @@
 
 #define sudokuSize 9
 
-#define elementsToRemove 50
+#define elementsToRemove 30
 
 #define WIDTH 453
 
@@ -39,16 +39,14 @@ void save(tileInfo tab[sudokuSize][sudokuSize])
 
 void load(tileInfo tab[sudokuSize][sudokuSize])
 {
-	//if( access( "save.dat", F_OK ) == -1 )
-		//return false;
+	FILE* fin = fopen("save.dat", "rb"); // load
 
-	FILE* fin = fopen("save.dat", "rb"); // save
+	if (fin == NULL)
+		return;
 
 	fread(tab, sizeof(struct tileInfo), sudokuSize * sudokuSize, fin);
 
 	fclose(fin);
-
-	//return true;
 }
 
 void displayString(sfRenderWindow* win, sfColor color, sfFont* font, int x, int y, int charSize, char* napis, bool center)
@@ -245,6 +243,8 @@ bool hasWon(tileInfo tab[sudokuSize][sudokuSize])
 
 void changeDisplayedText(char** dst, char* src, int** positions)
 {
+	if (*dst != NULL && strcmp(src, *dst) == 0)
+		return;
 	free(*dst);
 	free(*positions);
 
@@ -505,6 +505,8 @@ void handleWindow(tileInfo tab[sudokuSize][sudokuSize])
 
 int main()
 {
+	int a = 0;
+	printf("%d", sizeof(long long*));
 	srand(time(NULL));
 	tileInfo tab[sudokuSize][sudokuSize];
 	fillSudoku(tab, 0);
