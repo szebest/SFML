@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['generatesudoku_21',['generateSudoku',['../main_8c.html#a9ce66e5937e849edd725f0ea38999462',1,'main.c']]]
+  ['generatesudoku_28',['generateSudoku',['../funkcje_8h.html#ace54ae9d5e44203526c7f8d91ca1ffc6',1,'funkcje.c']]]
 ];

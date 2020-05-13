@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_2ec_7',['main.c',['../main_8c.html',1,'']]]
+  ['isvalid_10',['isValid',['../funkcje_8h.html#a4670d4eab1c2c9ff44edb90f337730a4',1,'funkcje.c']]]
 ];

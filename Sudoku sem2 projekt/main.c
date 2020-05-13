@@ -6,8 +6,6 @@
 #include "struktury.h"
 #include "funkcje.h"
 
-/** @file */
-
 int main()
 {
 	//Inicjujemy losowe liczby

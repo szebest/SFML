@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['removeelements_8',['removeElements',['../main_8c.html#a307b61f46be316545290205625397852',1,'main.c']]]
+  ['load_11',['load',['../funkcje_8h.html#aa83afa35721549adf48b3caa26fa1e18',1,'funkcje.c']]]
 ];

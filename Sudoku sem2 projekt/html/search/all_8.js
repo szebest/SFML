@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['threadinfo_11',['threadInfo',['../structthread_info.html',1,'threadInfo'],['../main_8c.html#aaccec4b9ef8984d094692a1ebc5e1f0a',1,'threadInfo():&#160;main.c']]],
-  ['tileinfo_12',['tileInfo',['../structtile_info.html',1,'tileInfo'],['../main_8c.html#a3983cc9864b4e3d366cf125a8c271047',1,'tileInfo():&#160;main.c']]]
+  ['save_13',['save',['../funkcje_8h.html#a2c73d3be6520b2b8d152fdf4e42957a5',1,'funkcje.c']]],
+  ['solvesudoku_14',['solveSudoku',['../funkcje_8h.html#ad159140d0b101ce711325faea1d44a3e',1,'funkcje.c']]],
+  ['struktury_2eh_15',['struktury.h',['../struktury_8h.html',1,'']]]
 ];

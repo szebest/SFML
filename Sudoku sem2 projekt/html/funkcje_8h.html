@@ -1,0 +1,650 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.16"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sudoku: Dokumentacja pliku funkcje.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Sudoku
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Wygenerowano przez Doxygen 1.8.16 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Szukaj');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Szukaj');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Definicje</a> &#124;
+<a href="#func-members">Funkcje</a>  </div>
+  <div class="headertitle">
+<div class="title">Dokumentacja pliku funkcje.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;SFML/Graphics.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="struktury_8h_source.html">struktury.h</a>&quot;</code><br />
+</div>
+<p><a href="funkcje_8h_source.html">IdÅº do kodu ÅºrÃ³dÅ‚owego tego pliku.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Definicje</h2></td></tr>
+<tr class="memitem:a53519a9bb055215157fd857b0a25dd12"><td class="memItemLeft" align="right" valign="top"><a id="a53519a9bb055215157fd857b0a25dd12"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>elementsToRemove</b>&#160;&#160;&#160;25</td></tr>
+<tr class="separator:a53519a9bb055215157fd857b0a25dd12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c9fa3b71bd0f457365962fb9e9b4a7d"><td class="memItemLeft" align="right" valign="top"><a id="a7c9fa3b71bd0f457365962fb9e9b4a7d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>sudokuSize</b>&#160;&#160;&#160;9</td></tr>
+<tr class="separator:a7c9fa3b71bd0f457365962fb9e9b4a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a241aeeb764887ae5e3de58b98f04b16d"><td class="memItemLeft" align="right" valign="top"><a id="a241aeeb764887ae5e3de58b98f04b16d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WIDTH</b>&#160;&#160;&#160;453</td></tr>
+<tr class="separator:a241aeeb764887ae5e3de58b98f04b16d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed89bd71aee8be823e8a20ec4e093c1e"><td class="memItemLeft" align="right" valign="top"><a id="aed89bd71aee8be823e8a20ec4e093c1e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>HEIGHT</b>&#160;&#160;&#160;542</td></tr>
+<tr class="separator:aed89bd71aee8be823e8a20ec4e093c1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funkcje</h2></td></tr>
+<tr class="memitem:a0c8b3f15f41bf33afbe7da15dc5af5fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#a0c8b3f15f41bf33afbe7da15dc5af5fa">fillSudoku</a> (struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize], int number)</td></tr>
+<tr class="separator:a0c8b3f15f41bf33afbe7da15dc5af5fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c73d3be6520b2b8d152fdf4e42957a5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#a2c73d3be6520b2b8d152fdf4e42957a5">save</a> (const struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize])</td></tr>
+<tr class="separator:a2c73d3be6520b2b8d152fdf4e42957a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4670d4eab1c2c9ff44edb90f337730a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#a4670d4eab1c2c9ff44edb90f337730a4">isValid</a> (struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize])</td></tr>
+<tr class="separator:a4670d4eab1c2c9ff44edb90f337730a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa83afa35721549adf48b3caa26fa1e18"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#aa83afa35721549adf48b3caa26fa1e18">load</a> (struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize])</td></tr>
+<tr class="separator:aa83afa35721549adf48b3caa26fa1e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cffde0b06f96b4c0893bbc9935245c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#a6cffde0b06f96b4c0893bbc9935245c0">displayString</a> (const sfRenderWindow *win, const sfColor color, const sfFont *font, const int x, const int y, const int charSize, const char *napis, const bool center)</td></tr>
+<tr class="separator:a6cffde0b06f96b4c0893bbc9935245c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a672b591dd89e5baf5b45d0bb73918e93"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#a672b591dd89e5baf5b45d0bb73918e93">checkColumn</a> (struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize], int i, int number)</td></tr>
+<tr class="separator:a672b591dd89e5baf5b45d0bb73918e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa592a1257a3db198e0e0527b5d9b5a07"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#aa592a1257a3db198e0e0527b5d9b5a07">checkRow</a> (struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize], int i, int number)</td></tr>
+<tr class="separator:aa592a1257a3db198e0e0527b5d9b5a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1e6c445c45b0e027d4a2e67735af4d9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#aa1e6c445c45b0e027d4a2e67735af4d9">checkSquare</a> (struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize], int x, int y, int number)</td></tr>
+<tr class="separator:aa1e6c445c45b0e027d4a2e67735af4d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1656f5b85a81eafc1a7cc22329537e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#af1656f5b85a81eafc1a7cc22329537e9">removeElements</a> (struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize], int elements)</td></tr>
+<tr class="separator:af1656f5b85a81eafc1a7cc22329537e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace54ae9d5e44203526c7f8d91ca1ffc6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#ace54ae9d5e44203526c7f8d91ca1ffc6">generateSudoku</a> (struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize], bool *redo)</td></tr>
+<tr class="separator:ace54ae9d5e44203526c7f8d91ca1ffc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad159140d0b101ce711325faea1d44a3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#ad159140d0b101ce711325faea1d44a3e">solveSudoku</a> (struct <a class="el" href="structthread_info.html">threadInfo</a> *tInfo)</td></tr>
+<tr class="separator:ad159140d0b101ce711325faea1d44a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0d2d1291d4a89d1bc2bf45700112ae0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#aa0d2d1291d4a89d1bc2bf45700112ae0">hasWon</a> (struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize])</td></tr>
+<tr class="separator:aa0d2d1291d4a89d1bc2bf45700112ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f2b1304011e0d031d3acf0f1db13c7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#a5f2b1304011e0d031d3acf0f1db13c7c">changeDisplayedText</a> (char **dst, char *src, int **positions)</td></tr>
+<tr class="separator:a5f2b1304011e0d031d3acf0f1db13c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aead32d8448b6f85c89610de0abaae3ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="funkcje_8h.html#aead32d8448b6f85c89610de0abaae3ab">handleWindow</a> (struct <a class="el" href="structtile_info.html">tileInfo</a> tab[sudokuSize][sudokuSize])</td></tr>
+<tr class="separator:aead32d8448b6f85c89610de0abaae3ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Dokumentacja funkcji</h2>
+<a id="a5f2b1304011e0d031d3acf0f1db13c7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f2b1304011e0d031d3acf0f1db13c7c">&#9670;&nbsp;</a></span>changeDisplayedText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void changeDisplayedText </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int **&#160;</td>
+          <td class="paramname"><em>positions</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funckja zmienia wyœwietlany napis </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dst</td><td>wskaŸnik na oryginalny napis, który ma zostaæ zedytowany </td></tr>
+    <tr><td class="paramname">src</td><td>napis, który mamy zapisaæ do zmiennej src </td></tr>
+    <tr><td class="paramname">positions</td><td>wskaŸnik na tablicê, która przechowuje pozycje ka¿dej z liter w napisie </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Funkcja nic nie zwraca </dd></dl>
+
+</div>
+</div>
+<a id="a672b591dd89e5baf5b45d0bb73918e93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a672b591dd89e5baf5b45d0bb73918e93">&#9670;&nbsp;</a></span>checkColumn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool checkColumn </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funkcja sprawdza, czy mo¿liwe jest umieszczenie danej liczby w danej kolumnie </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+    <tr><td class="paramname">i</td><td>Index kolumny </td></tr>
+    <tr><td class="paramname">number</td><td>Liczba do sprawdzenia </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Zwraca, czy mo¿na wstawiæ podan¹ liczbê do danej kolumny </dd></dl>
+
+</div>
+</div>
+<a id="aa592a1257a3db198e0e0527b5d9b5a07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa592a1257a3db198e0e0527b5d9b5a07">&#9670;&nbsp;</a></span>checkRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool checkRow </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funkcja sprawdza, czy mo¿liwe jest umieszczenie danej liczby w danym wierszu </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+    <tr><td class="paramname">i</td><td>Index wiersza </td></tr>
+    <tr><td class="paramname">number</td><td>Liczba do sprawdzenia </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Zwraca, czy mo¿na wstawiæ podan¹ liczbê do danego wierszu </dd></dl>
+
+</div>
+</div>
+<a id="aa1e6c445c45b0e027d4a2e67735af4d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1e6c445c45b0e027d4a2e67735af4d9">&#9670;&nbsp;</a></span>checkSquare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool checkSquare </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funkcja sprawdza, czy mo¿liwe jest umieszczenie danej liczby w danym kwadracie 3x3 </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+    <tr><td class="paramname">x</td><td>Index x kwadratu </td></tr>
+    <tr><td class="paramname">y</td><td>Index y kwadratu </td></tr>
+    <tr><td class="paramname">number</td><td>Liczba do sprawdzenia </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Zwraca, czy mo¿na wstawiæ podan¹ liczbê do danego kwadratu 3x3 </dd></dl>
+
+</div>
+</div>
+<a id="a6cffde0b06f96b4c0893bbc9935245c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cffde0b06f96b4c0893bbc9935245c0">&#9670;&nbsp;</a></span>displayString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayString </td>
+          <td>(</td>
+          <td class="paramtype">const sfRenderWindow *&#160;</td>
+          <td class="paramname"><em>win</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sfColor&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sfFont *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>charSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>napis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>center</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funkcja wyœwietla na ekran podany napis </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">win</td><td>WskaŸnik na okno, na którym ma byæ napis narysowany </td></tr>
+    <tr><td class="paramname">color</td><td>Jakiego koloru ma byæ napis </td></tr>
+    <tr><td class="paramname">font</td><td>WskaŸnik na czcionkê </td></tr>
+    <tr><td class="paramname">x</td><td>Pozycja x na oknie </td></tr>
+    <tr><td class="paramname">y</td><td>Pozycja y na oknie </td></tr>
+    <tr><td class="paramname">charSize</td><td>Rozmiar czcionki </td></tr>
+    <tr><td class="paramname">napis</td><td>Napis do wyœwietlenia </td></tr>
+    <tr><td class="paramname">center</td><td>Czy tekst ma zostaæ wyœrodkowany </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Funkcja nic nie zwraca </dd></dl>
+
+</div>
+</div>
+<a id="a0c8b3f15f41bf33afbe7da15dc5af5fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c8b3f15f41bf33afbe7da15dc5af5fa">&#9670;&nbsp;</a></span>fillSudoku()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fillSudoku </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funkcja wype³nia sudoku podan¹ liczb¹ </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+    <tr><td class="paramname">number</td><td>Liczba, któr¹ zostanie wype³niona tablica </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Funkcja nic nie zwraca </dd></dl>
+
+</div>
+</div>
+<a id="ace54ae9d5e44203526c7f8d91ca1ffc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace54ae9d5e44203526c7f8d91ca1ffc6">&#9670;&nbsp;</a></span>generateSudoku()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void generateSudoku </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>redo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Rekurencyjna funkcja tworzy poprawn¹, w pe³ni wype³nion¹ tablicê sudoku </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+    <tr><td class="paramname">redo</td><td>WskaŸnik na zmienn¹ logiczn¹, która mówi, czy po znalezieniu jednej rozwi¹zanej tablicy mamy szukaæ dalej w poszukiwaniu kolejnych (true = pierwsza tablica wygenerowana koñczy funkcjê) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Funkcja nic nie zwraca </dd></dl>
+
+</div>
+</div>
+<a id="aead32d8448b6f85c89610de0abaae3ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aead32d8448b6f85c89610de0abaae3ab">&#9670;&nbsp;</a></span>handleWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handleWindow </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>G³ówna funckja, obs³uguj¹ca zdarzenia i okno </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Funkcja nic nie zwraca </dd></dl>
+
+</div>
+</div>
+<a id="aa0d2d1291d4a89d1bc2bf45700112ae0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d2d1291d4a89d1bc2bf45700112ae0">&#9670;&nbsp;</a></span>hasWon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hasWon </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funckja sprawdza, czy u¿ytkownik wygra³ </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Zwraca, czy tablica jest w pe³ni rozwi¹zana </dd></dl>
+
+</div>
+</div>
+<a id="a4670d4eab1c2c9ff44edb90f337730a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4670d4eab1c2c9ff44edb90f337730a4">&#9670;&nbsp;</a></span>isValid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isValid </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funkcja sprawdza poprawnoœæ tablicy sudoku </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Zwraca, czy tablica sudoku jest poprawna </dd></dl>
+
+</div>
+</div>
+<a id="aa83afa35721549adf48b3caa26fa1e18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa83afa35721549adf48b3caa26fa1e18">&#9670;&nbsp;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool load </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funkcja wczytuje planszê sudoku z pliku binarnego </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Zwraca, czy uda³o siê wczytaæ tablicê z pliku </dd></dl>
+
+</div>
+</div>
+<a id="af1656f5b85a81eafc1a7cc22329537e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1656f5b85a81eafc1a7cc22329537e9">&#9670;&nbsp;</a></span>removeElements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void removeElements </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>elements</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funkcja usuwa 'elements' elementów z tablicy sudoku </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+    <tr><td class="paramname">elements</td><td>Ile elementów do usuniêcia </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Funkcja nic nie zwraca </dd></dl>
+
+</div>
+</div>
+<a id="a2c73d3be6520b2b8d152fdf4e42957a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c73d3be6520b2b8d152fdf4e42957a5">&#9670;&nbsp;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool save </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="structtile_info.html">tileInfo</a>&#160;</td>
+          <td class="paramname"><em>tab</em>[sudokuSize][sudokuSize]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Funkcja zapisuje aktualn¹ planszê sudoku do pliku binarnego </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tab</td><td>Informacje o tablicy sudoku </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Zwraca, czy uda³o siê zapisaæ do pliku </dd></dl>
+
+</div>
+</div>
+<a id="ad159140d0b101ce711325faea1d44a3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad159140d0b101ce711325faea1d44a3e">&#9670;&nbsp;</a></span>solveSudoku()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void solveSudoku </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structthread_info.html">threadInfo</a> *&#160;</td>
+          <td class="paramname"><em>tInfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Rekurencyjna funkcja, wywo³ywana na osobnym w¹tku, która pokazuje mo¿liwe rozwi¹zania tablicy sudoku. Przy ka¿dym klikniêciu klawisza 'S' pokazuje, kolejne rozwi¹anie (o ile istnieje takie) </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tInfo</td><td>WskaŸnik na informacje przesy³ane do w¹tku </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>Funkcja nic nie zwraca </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Wygenerowano przez &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.16
+</small></address>
+</body>
+</html>
