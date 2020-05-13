@@ -1,0 +1,282 @@
+\hypertarget{main_8c}{}\doxysection{Dokumentacja pliku main.\+c}
+\label{main_8c}\index{main.c@{main.c}}
+{\ttfamily \#include $<$S\+F\+M\+L/\+Graphics.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+\doxysubsection*{Komponenty}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtile_info}{tile\+Info}}
+\item 
+struct \mbox{\hyperlink{structthread_info}{thread\+Info}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Definicje}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{main_8c_a7c9fa3b71bd0f457365962fb9e9b4a7d}\label{main_8c_a7c9fa3b71bd0f457365962fb9e9b4a7d}} 
+\#define {\bfseries sudoku\+Size}~9
+\item 
+\mbox{\Hypertarget{main_8c_a53519a9bb055215157fd857b0a25dd12}\label{main_8c_a53519a9bb055215157fd857b0a25dd12}} 
+\#define {\bfseries elements\+To\+Remove}~25
+\item 
+\mbox{\Hypertarget{main_8c_a241aeeb764887ae5e3de58b98f04b16d}\label{main_8c_a241aeeb764887ae5e3de58b98f04b16d}} 
+\#define {\bfseries W\+I\+D\+TH}~453
+\item 
+\mbox{\Hypertarget{main_8c_aed89bd71aee8be823e8a20ec4e093c1e}\label{main_8c_aed89bd71aee8be823e8a20ec4e093c1e}} 
+\#define {\bfseries H\+E\+I\+G\+HT}~542
+\end{DoxyCompactItemize}
+\doxysubsection*{Definicje typów}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structtile_info}{tile\+Info}} \mbox{\hyperlink{main_8c_a3983cc9864b4e3d366cf125a8c271047}{tile\+Info}}
+\item 
+typedef struct \mbox{\hyperlink{structthread_info}{thread\+Info}} \mbox{\hyperlink{main_8c_aaccec4b9ef8984d094692a1ebc5e1f0a}{thread\+Info}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Funkcje}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{main_8c_a97bac524a63e2227ec9b955246ade210}{save}} (const \mbox{\hyperlink{structtile_info}{tile\+Info}} tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]})
+\item 
+bool \mbox{\hyperlink{main_8c_a320a641a2015e751a6570021cc7421c4}{load}} (\mbox{\hyperlink{structtile_info}{tile\+Info}} tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]})
+\item 
+void \mbox{\hyperlink{main_8c_a6cffde0b06f96b4c0893bbc9935245c0}{display\+String}} (const sf\+Render\+Window $\ast$win, const sf\+Color color, const sf\+Font $\ast$font, const int x, const int y, const int char\+Size, const char $\ast$napis, const bool center)
+\item 
+bool \mbox{\hyperlink{main_8c_a11ef2f462557e99e9c8aafb825557f9e}{check\+Column}} (\mbox{\hyperlink{structtile_info}{tile\+Info}} tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]}, int i, int number)
+\item 
+bool \mbox{\hyperlink{main_8c_a6fd1b1d6ecd1a6ab1b5bce025cb3fd8a}{check\+Row}} (\mbox{\hyperlink{structtile_info}{tile\+Info}} tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]}, int i, int number)
+\item 
+bool \mbox{\hyperlink{main_8c_a4bed76aaec31d5532ca3261bc2318aeb}{check\+Square}} (\mbox{\hyperlink{structtile_info}{tile\+Info}} tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]}, int x, int y, int number)
+\item 
+void \mbox{\hyperlink{main_8c_a99bef791176dcb78bb9daf8214ef374a}{fill\+Sudoku}} (\mbox{\hyperlink{structtile_info}{tile\+Info}} tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]}, int number)
+\item 
+void \mbox{\hyperlink{main_8c_a307b61f46be316545290205625397852}{remove\+Elements}} (\mbox{\hyperlink{structtile_info}{tile\+Info}} tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]}, int elements)
+\item 
+void \mbox{\hyperlink{main_8c_a9ce66e5937e849edd725f0ea38999462}{generate\+Sudoku}} (\mbox{\hyperlink{structtile_info}{tile\+Info}} tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]}, bool $\ast$redo)
+\item 
+void \mbox{\hyperlink{main_8c_a16872c8344b96c5f893744de8a51c296}{solve\+Sudoku}} (\mbox{\hyperlink{structthread_info}{thread\+Info}} $\ast$t\+Info)
+\item 
+\mbox{\Hypertarget{main_8c_ae234920d1334323ebff95702da9340f1}\label{main_8c_ae234920d1334323ebff95702da9340f1}} 
+bool {\bfseries has\+Won} (\mbox{\hyperlink{structtile_info}{tile\+Info}} tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]})
+\item 
+\mbox{\Hypertarget{main_8c_a5f2b1304011e0d031d3acf0f1db13c7c}\label{main_8c_a5f2b1304011e0d031d3acf0f1db13c7c}} 
+void {\bfseries change\+Displayed\+Text} (char $\ast$$\ast$dst, char $\ast$src, int $\ast$$\ast$positions)
+\item 
+\mbox{\Hypertarget{main_8c_a4f88150637e36f432b7771b109c9ce82}\label{main_8c_a4f88150637e36f432b7771b109c9ce82}} 
+void {\bfseries handle\+Window} (\mbox{\hyperlink{structtile_info}{tile\+Info}} tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]})
+\item 
+\mbox{\Hypertarget{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+int {\bfseries main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Dokumentacja definicji typów}
+\mbox{\Hypertarget{main_8c_aaccec4b9ef8984d094692a1ebc5e1f0a}\label{main_8c_aaccec4b9ef8984d094692a1ebc5e1f0a}} 
+\index{main.c@{main.c}!threadInfo@{threadInfo}}
+\index{threadInfo@{threadInfo}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{threadInfo}{threadInfo}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structthread_info}{thread\+Info}} \mbox{\hyperlink{structthread_info}{thread\+Info}}}
+
+Informacje przesyłane do wątku funkcji solve\+Sudoku 
+\begin{DoxyParams}{Parametry}
+{\em tab} & Tablica sudoku \\
+\hline
+{\em more} & Ile więcej rozwiązań ma rozwiązać \\
+\hline
+{\em decremented} & Czy zmienna more została już zdekrementowana \\
+\hline
+{\em inside} & Czy aktualnie jesteśmy w wątku \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{main_8c_a3983cc9864b4e3d366cf125a8c271047}\label{main_8c_a3983cc9864b4e3d366cf125a8c271047}} 
+\index{main.c@{main.c}!tileInfo@{tileInfo}}
+\index{tileInfo@{tileInfo}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{tileInfo}{tileInfo}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structtile_info}{tile\+Info}} \mbox{\hyperlink{structtile_info}{tile\+Info}}}
+
+Informacje o jednym polu sudoku 
+\begin{DoxyParams}{Parametry}
+{\em value} & Przechowywana wartość w polu \\
+\hline
+{\em can\+Be\+Modified} & Czy użytkownik może edytować dane pole, czy zostało ono wygenerowane podczas generowania tablicy Sudoku \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Dokumentacja funkcji}
+\mbox{\Hypertarget{main_8c_a11ef2f462557e99e9c8aafb825557f9e}\label{main_8c_a11ef2f462557e99e9c8aafb825557f9e}} 
+\index{main.c@{main.c}!checkColumn@{checkColumn}}
+\index{checkColumn@{checkColumn}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{checkColumn()}{checkColumn()}}
+{\footnotesize\ttfamily bool check\+Column (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtile_info}{tile\+Info}}}]{tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]},  }\item[{int}]{i,  }\item[{int}]{number }\end{DoxyParamCaption})}
+
+Funkcja sprawdza, czy możliwe jest umieszczenie danej liczby w danej kolumnie 
+\begin{DoxyParams}{Parametry}
+{\em tab} & Informacje o tablicy sudoku \\
+\hline
+{\em i} & Index kolumny \\
+\hline
+{\em number} & Liczba do sprawdzenia \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Zwraca, czy można wstawić podaną liczbę do danej kolumny 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8c_a6fd1b1d6ecd1a6ab1b5bce025cb3fd8a}\label{main_8c_a6fd1b1d6ecd1a6ab1b5bce025cb3fd8a}} 
+\index{main.c@{main.c}!checkRow@{checkRow}}
+\index{checkRow@{checkRow}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{checkRow()}{checkRow()}}
+{\footnotesize\ttfamily bool check\+Row (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtile_info}{tile\+Info}}}]{tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]},  }\item[{int}]{i,  }\item[{int}]{number }\end{DoxyParamCaption})}
+
+Funkcja sprawdza, czy możliwe jest umieszczenie danej liczby w danym wierszu 
+\begin{DoxyParams}{Parametry}
+{\em tab} & Informacje o tablicy sudoku \\
+\hline
+{\em i} & Index wiersza \\
+\hline
+{\em number} & Liczba do sprawdzenia \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Zwraca, czy można wstawić podaną liczbę do danego wierszu 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8c_a4bed76aaec31d5532ca3261bc2318aeb}\label{main_8c_a4bed76aaec31d5532ca3261bc2318aeb}} 
+\index{main.c@{main.c}!checkSquare@{checkSquare}}
+\index{checkSquare@{checkSquare}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{checkSquare()}{checkSquare()}}
+{\footnotesize\ttfamily bool check\+Square (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtile_info}{tile\+Info}}}]{tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]},  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{number }\end{DoxyParamCaption})}
+
+Funkcja sprawdza, czy możliwe jest umieszczenie danej liczby w danym kwadracie 3x3 
+\begin{DoxyParams}{Parametry}
+{\em tab} & Informacje o tablicy sudoku \\
+\hline
+{\em x} & Index x kwadratu \\
+\hline
+{\em y} & Index y kwadratu \\
+\hline
+{\em number} & Liczba do sprawdzenia \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Zwraca, czy można wstawić podaną liczbę do danego kwadratu 3x3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8c_a6cffde0b06f96b4c0893bbc9935245c0}\label{main_8c_a6cffde0b06f96b4c0893bbc9935245c0}} 
+\index{main.c@{main.c}!displayString@{displayString}}
+\index{displayString@{displayString}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{displayString()}{displayString()}}
+{\footnotesize\ttfamily void display\+String (\begin{DoxyParamCaption}\item[{const sf\+Render\+Window $\ast$}]{win,  }\item[{const sf\+Color}]{color,  }\item[{const sf\+Font $\ast$}]{font,  }\item[{const int}]{x,  }\item[{const int}]{y,  }\item[{const int}]{char\+Size,  }\item[{const char $\ast$}]{napis,  }\item[{const bool}]{center }\end{DoxyParamCaption})}
+
+Funkcja wyświetla na ekran podany napis 
+\begin{DoxyParams}{Parametry}
+{\em win} & Wskaźnik na okno, na którym ma być napis narysowany \\
+\hline
+{\em color} & Jakiego koloru ma być napis \\
+\hline
+{\em font} & Wskaźnik na czcionkę \\
+\hline
+{\em x} & Pozycja x na oknie \\
+\hline
+{\em y} & Pozycja y na oknie \\
+\hline
+{\em char\+Size} & Rozmiar czcionki \\
+\hline
+{\em napis} & Napis do wyświetlenia \\
+\hline
+{\em center} & Czy tekst ma zostać wyśrodkowany \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Funkcja nic nie zwraca 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8c_a99bef791176dcb78bb9daf8214ef374a}\label{main_8c_a99bef791176dcb78bb9daf8214ef374a}} 
+\index{main.c@{main.c}!fillSudoku@{fillSudoku}}
+\index{fillSudoku@{fillSudoku}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{fillSudoku()}{fillSudoku()}}
+{\footnotesize\ttfamily void fill\+Sudoku (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtile_info}{tile\+Info}}}]{tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]},  }\item[{int}]{number }\end{DoxyParamCaption})}
+
+Funkcja wypełnia sudoku podaną liczbą 
+\begin{DoxyParams}{Parametry}
+{\em tab} & Informacje o tablicy sudoku \\
+\hline
+{\em number} & Liczba, którą zostanie wypełniona tablica \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Funkcja nic nie zwraca 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8c_a9ce66e5937e849edd725f0ea38999462}\label{main_8c_a9ce66e5937e849edd725f0ea38999462}} 
+\index{main.c@{main.c}!generateSudoku@{generateSudoku}}
+\index{generateSudoku@{generateSudoku}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{generateSudoku()}{generateSudoku()}}
+{\footnotesize\ttfamily void generate\+Sudoku (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtile_info}{tile\+Info}}}]{tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]},  }\item[{bool $\ast$}]{redo }\end{DoxyParamCaption})}
+
+Rekurencyjna funkcja tworzy poprawną, w pełni wypełnioną tablicę sudoku 
+\begin{DoxyParams}{Parametry}
+{\em tab} & Informacje o tablicy sudoku \\
+\hline
+{\em redo} & Wskaźnik na zmienną logiczną, która mówi, czy po znalezieniu jednej rozwiązanej tablicy mamy szukać dalej w poszukiwaniu kolejnych (true = pierwsza tablica wygenerowana kończy funkcję) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Funkcja nic nie zwraca 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8c_a320a641a2015e751a6570021cc7421c4}\label{main_8c_a320a641a2015e751a6570021cc7421c4}} 
+\index{main.c@{main.c}!load@{load}}
+\index{load@{load}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily bool load (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtile_info}{tile\+Info}}}]{tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]} }\end{DoxyParamCaption})}
+
+Funkcja wczytuje planszę sudoku z pliku binarnego 
+\begin{DoxyParams}{Parametry}
+{\em tab} & Informacje o tablicy sudoku \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Zwraca, czy udało się wczytać tablicę z pliku 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8c_a307b61f46be316545290205625397852}\label{main_8c_a307b61f46be316545290205625397852}} 
+\index{main.c@{main.c}!removeElements@{removeElements}}
+\index{removeElements@{removeElements}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{removeElements()}{removeElements()}}
+{\footnotesize\ttfamily void remove\+Elements (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtile_info}{tile\+Info}}}]{tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]},  }\item[{int}]{elements }\end{DoxyParamCaption})}
+
+Funkcja usuwa \textquotesingle{}elements\textquotesingle{} elementów z tablicy sudoku 
+\begin{DoxyParams}{Parametry}
+{\em tab} & Informacje o tablicy sudoku \\
+\hline
+{\em elements} & Ile elementów do usunięcia \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Funkcja nic nie zwraca 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8c_a97bac524a63e2227ec9b955246ade210}\label{main_8c_a97bac524a63e2227ec9b955246ade210}} 
+\index{main.c@{main.c}!save@{save}}
+\index{save@{save}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily bool save (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtile_info}{tile\+Info}}}]{tab\mbox{[}sudoku\+Size\mbox{]}\mbox{[}sudoku\+Size\mbox{]} }\end{DoxyParamCaption})}
+
+Funkcja zapisuje aktualną planszę sudoku do pliku binarnego 
+\begin{DoxyParams}{Parametry}
+{\em tab} & Informacje o tablicy sudoku \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Zwraca, czy udało się zapisać do pliku 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8c_a16872c8344b96c5f893744de8a51c296}\label{main_8c_a16872c8344b96c5f893744de8a51c296}} 
+\index{main.c@{main.c}!solveSudoku@{solveSudoku}}
+\index{solveSudoku@{solveSudoku}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{solveSudoku()}{solveSudoku()}}
+{\footnotesize\ttfamily void solve\+Sudoku (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structthread_info}{thread\+Info}} $\ast$}]{t\+Info }\end{DoxyParamCaption})}
+
+Rekurencyjna funkcja, wywoływana na osobnym wątku, która pokazuje możliwe rozwiązania tablicy sudoku. Przy każdym kliknięciu klawisza \textquotesingle{}S\textquotesingle{} pokazuje, kolejne rozwiąanie (o ile istnieje takie) 
+\begin{DoxyParams}{Parametry}
+{\em t\+Info} & Wskaźnik na informacje przesyłane do wątku \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Funkcja nic nie zwraca 
+\end{DoxyReturn}

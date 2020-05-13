@@ -1,0 +1,65 @@
+\begin{theindex}
+
+  \item {checkColumn}
+    \subitem {main.c}, \hyperpage{11}
+  \item {checkRow}
+    \subitem {main.c}, \hyperpage{11}
+  \item {checkSquare}
+    \subitem {main.c}, \hyperpage{11}
+
+  \indexspace
+
+  \item {displayString}
+    \subitem {main.c}, \hyperpage{12}
+
+  \indexspace
+
+  \item {fillSudoku}
+    \subitem {main.c}, \hyperpage{13}
+
+  \indexspace
+
+  \item {generateSudoku}
+    \subitem {main.c}, \hyperpage{13}
+
+  \indexspace
+
+  \item {load}
+    \subitem {main.c}, \hyperpage{13}
+
+  \indexspace
+
+  \item {main.c}, \hyperpage{9}
+    \subitem {checkColumn}, \hyperpage{11}
+    \subitem {checkRow}, \hyperpage{11}
+    \subitem {checkSquare}, \hyperpage{11}
+    \subitem {displayString}, \hyperpage{12}
+    \subitem {fillSudoku}, \hyperpage{13}
+    \subitem {generateSudoku}, \hyperpage{13}
+    \subitem {load}, \hyperpage{13}
+    \subitem {removeElements}, \hyperpage{14}
+    \subitem {save}, \hyperpage{14}
+    \subitem {solveSudoku}, \hyperpage{14}
+    \subitem {threadInfo}, \hyperpage{10}
+    \subitem {tileInfo}, \hyperpage{10}
+
+  \indexspace
+
+  \item {removeElements}
+    \subitem {main.c}, \hyperpage{14}
+
+  \indexspace
+
+  \item {save}
+    \subitem {main.c}, \hyperpage{14}
+  \item {solveSudoku}
+    \subitem {main.c}, \hyperpage{14}
+
+  \indexspace
+
+  \item {threadInfo}, \hyperpage{5}
+    \subitem {main.c}, \hyperpage{10}
+  \item {tileInfo}, \hyperpage{5}
+    \subitem {main.c}, \hyperpage{10}
+
+\end{theindex}
