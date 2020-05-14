@@ -122,4 +122,10 @@ void changeDisplayedText(char** dst, char* src, int** positions);
 */
 void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize]);
 
+void dodajDoListyJednokierunkowej(struct history** head, int value, int x, int y);
+
+void czytajPoczatekListyJednokierunkowej(struct history** head, struct tileInfo tab[sudokuSize][sudokuSize]);
+
+void usunListeJednokierunkowa(struct history** head);
+
 #endif

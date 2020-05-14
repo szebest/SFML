@@ -31,4 +31,12 @@ typedef struct threadInfo
 	bool inside;
 };
 
+typedef struct history
+{
+	int x;
+	int y;
+	int value;
+	struct history* next;
+};
+
 #endif

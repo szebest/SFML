@@ -291,6 +291,9 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 	sfClock* clock;
 	sfThread* thread;
 
+	//Zmienna listy jednokierunkowej
+	struct history* head = NULL;
+
 	//Zmienna, w ktorej przechowujemy informacje przekazane w¹tkowi
 	struct threadInfo tInfo;
 	tInfo.tab = tab;
@@ -390,6 +393,11 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 						}
 					}
 				}
+
+				if (!tInfo.inside)
+					//Cofiemy do stanu poprzedniego
+					if (sfKeyboard_isKeyPressed(sfKeyZ))
+						czytajPoczatekListyJednokierunkowej(&head, tab);
 			}
 		}
 
@@ -429,12 +437,16 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 			case 2:
 			{
 				if (load(tab))
+				{
+					usunListeJednokierunkowa(&head);
 					changeDisplayedText(&wyswietlane, "Loaded", &positions);
+				}
 				else
 					changeDisplayedText(&wyswietlane, "Couldn't load", &positions);
 			} break;
 			case 3:
 			{
+				usunListeJednokierunkowa(&head);
 				fillSudoku(tab, 0);
 				bool redo = true;
 				generateSudoku(tab, &redo);
@@ -469,11 +481,13 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 					{
 						if (leftMouse && tab[j][i].canBeModified && checkColumn(tab, i, currentNumber) && checkRow(tab, j, currentNumber) && checkSquare(tab, i / 3, j / 3, currentNumber))
 						{
+							dodajDoListyJednokierunkowej(&head, tab[j][i].value, i, j);
 							tab[j][i].value = currentNumber;
 							check = true;
 						}
 						if (rightMouse && tab[j][i].canBeModified)
 						{
+							dodajDoListyJednokierunkowej(&head, tab[j][i].value, i, j);
 							tab[j][i].value = 0;
 							check = true;
 						}
@@ -565,4 +579,46 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 
 	free(positions);
 	free(wyswietlane);
+}
+
+void dodajDoListyJednokierunkowej(struct history** head, int value, int x, int y)
+{
+	if (*head == NULL)
+	{
+		*head = (struct history*)malloc(sizeof(struct history));
+		(*head)->next = NULL;
+		(*head)->value = value;
+		(*head)->x = x;
+		(*head)->y = y;
+	}
+	else {
+		struct history* tmp = (struct history*)malloc(sizeof(struct history));
+		tmp->next = *head;
+		tmp->value = value;
+		tmp->x = x;
+		tmp->y = y;
+		*head = tmp;
+	}
+}
+
+void czytajPoczatekListyJednokierunkowej(struct history** head, struct tileInfo tab[sudokuSize][sudokuSize])
+{
+	if (*head)
+	{
+		tab[(*head)->y][(*head)->x].value = (*head)->value;
+
+		struct history* tmp = (*head)->next;
+		free(*head);
+		*head = tmp;
+	}
+}
+
+void usunListeJednokierunkowa(struct history** head)
+{
+	while (*head)
+	{
+		struct history* tmp = (*head)->next;
+		free(*head);
+		*head = tmp;
+	}
 }
