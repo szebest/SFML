@@ -33,7 +33,7 @@ bool isValid(struct tileInfo tab[sudokuSize][sudokuSize])
 	for (int i = 0; i < sudokuSize; i++)
 		for (int j = 0; j < sudokuSize; j++)
 			for (int k = 0; k < sudokuSize; k++)
-				if (j != k && (tab[i][j].value == tab[i][k].value || tab[j][i].value == tab[k][i].value))
+				if (j != k && ((tab[i][j].value == tab[i][k].value && tab[i][j].value != 0) || (tab[j][i].value != 0 && tab[j][i].value == tab[k][i].value != 0)))
 					return false;
 
 	//Sprawdza kwadraty
@@ -43,7 +43,7 @@ bool isValid(struct tileInfo tab[sudokuSize][sudokuSize])
 				for (int m = 0; m < sudokuSize / 3; m++)
 					for (int n = 0; n < sudokuSize / 3; n++)
 						for (int o = 0; o < sudokuSize / 3; o++)
-							if (k != n && m != o && tab[i * 3 + k][j * 3 + m].value == tab[i * 3 + n][j * 3 + o].value)
+							if (k != n && m != o && tab[i * 3 + k][j * 3 + m].value == tab[i * 3 + n][j * 3 + o].value && tab[i * 3 + k][j * 3 + m].value != 0)
 								return false;
 
 	return true;
@@ -395,9 +395,21 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 				}
 
 				if (!tInfo.inside)
+				{
 					//Cofiemy do stanu poprzedniego
 					if (sfKeyboard_isKeyPressed(sfKeyZ))
 						czytajPoczatekListyJednokierunkowej(&head, tab);
+
+					//Inna forma wpisywania liczb do tablicy Sudoku
+					if (event.text.unicode - 75 >= 0 && event.text.unicode - 75 < 10)
+					{
+						hasClicked = true;
+						leftMouse = true;
+						currentNumber = event.text.unicode - 75;
+					}
+
+					//0 w unicodzie ma wartosc 75
+				}
 			}
 		}
 
@@ -579,6 +591,8 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 
 	free(positions);
 	free(wyswietlane);
+
+	usunListeJednokierunkowa(&head);
 }
 
 void dodajDoListyJednokierunkowej(struct history** head, int value, int x, int y)
