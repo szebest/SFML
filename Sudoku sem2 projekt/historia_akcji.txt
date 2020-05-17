@@ -1,1 +1,35 @@
 1. Otwarto aplikacje
+2. Pokazano mo¿liwe rozwiazanie nr 1
+3. Brak dodatkowych roziwazan
+4. Wygenerowano now¹ tablicê
+5. Wygenerowano now¹ tablicê
+6. Pokazano mo¿liwe rozwiazanie nr 1
+7. Brak dodatkowych roziwazan
+8. U¿ytkownik wybra³ liczbê 3
+9. U¿ytkownik wpisa³ liczbê 3 na pozycjê 0, 0
+10. U¿ytkownik wybra³ liczbê 1
+11. U¿ytkownik wpisa³ liczbê 1 na pozycjê 1, 0
+12. U¿ytkownik wybra³ liczbê 9
+13. U¿ytkownik wpisa³ liczbê 9 na pozycjê 0, 1
+14. U¿ytkownik wybra³ liczbê 4
+15. U¿ytkownik wpisa³ liczbê 4 na pozycjê 0, 2
+16. U¿ytkownik usun¹³ liczbê 4 z pozycji 0, 2
+17. Cofniêto ruch z liczby 0 na liczbe 4 na pozycji 0, 2
+18. U¿ytkownik usun¹³ liczbê 4 z pozycji 0, 2
+19. Cofniêto ruch z liczby 0 na liczbe 4 na pozycji 0, 2
+20. U¿ytkownik usun¹³ liczbê 4 z pozycji 0, 2
+21. Cofniêto ruch z liczby 0 na liczbe 4 na pozycji 0, 2
+22. U¿ytkownik usun¹³ liczbê 9 z pozycji 0, 1
+23. Cofniêto ruch z liczby 0 na liczbe 9 na pozycji 0, 1
+24. U¿ytkownik usun¹³ liczbê 3 z pozycji 0, 0
+25. Cofniêto ruch z liczby 0 na liczbe 3 na pozycji 0, 0
+26. U¿ytkownik usun¹³ liczbê 1 z pozycji 1, 0
+27. Cofniêto ruch z liczby 0 na liczbe 1 na pozycji 1, 0
+28. U¿ytkownik usun¹³ liczbê 9 z pozycji 0, 1
+29. Cofniêto ruch z liczby 0 na liczbe 9 na pozycji 0, 1
+30. Cofniêto ruch z liczby 4 na liczbe 0 na pozycji 0, 2
+31. Cofniêto ruch z liczby 9 na liczbe 0 na pozycji 0, 1
+32. Cofniêto ruch z liczby 1 na liczbe 0 na pozycji 1, 0
+33. Wczytano
+34. Wygenerowano now¹ tablicê
+35. Zapisano
