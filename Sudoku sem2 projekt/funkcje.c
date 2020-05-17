@@ -29,6 +29,12 @@ bool save(const struct tileInfo tab[sudokuSize][sudokuSize])
 
 bool isValid(struct tileInfo tab[sudokuSize][sudokuSize])
 {
+	//Sprawdza czy liczby sa w odpowiednim przedziale
+	for (int i = 0; i < sudokuSize; i++)
+		for (int j = 0; j < sudokuSize; j++)
+			if (tab[i][j].value > 9 || tab[i][j].value < 0)
+				return false;
+
 	//Sprawdza kolumny i wiersze
 	for (int i = 0; i < sudokuSize; i++)
 		for (int j = 0; j < sudokuSize; j++)
@@ -291,13 +297,15 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 	sfClock* clock;
 	sfThread* thread;
 
-	//Zmienna listy jednokierunkowej
-	struct history* head = NULL;
+	//Zmienne listy jednokierunkowej
+	struct tile_history* tile_head = NULL;
+	struct action_history* action_head = NULL;
 
 	//Zmienna, w ktorej przechowujemy informacje przekazane w¹tkowi
 	struct threadInfo tInfo;
 	tInfo.tab = tab;
 	tInfo.more = -1;
+	tInfo.amount = 0;
 	tInfo.decremented = false;
 	tInfo.inside = false;
 
@@ -326,6 +334,8 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 	win = sfRenderWindow_create(mode, "Sudoku", sfClose, NULL);
 	sfRenderWindow_setVerticalSyncEnabled(win, true);
 	sfWindow_setKeyRepeatEnabled(win, false);
+
+	action_dodajNaKoniecListyJednokierunkowej(&action_head, "Otwarto aplikacje");
 
 	//G³ówna pêtla okna
 	while (sfRenderWindow_isOpen(win))
@@ -363,6 +373,7 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 						tInfo.more = -1;
 						tInfo.decremented = false;
 						tInfo.inside = false;
+						tInfo.amount = 0;
 						sfThread_terminate(thread);
 						memcpy(tab, helpTab, sizeof(struct tileInfo) * sudokuSize * sudokuSize);
 					}
@@ -371,13 +382,22 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 					{
 						memcpy(helpTab, tab, sizeof(struct tileInfo) * sudokuSize * sudokuSize);
 						tInfo.more = 1;
+						tInfo.amount++;
 						tInfo.decremented = false;
+						
+						char buffer[100];
+
+						sprintf(buffer, "Pokazano mo¿liwe rozwiazanie nr %d", tInfo.amount);
+
+						action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
+						
 						sfThread_launch(thread);
 					}
 					//Ujawniamy kolejne rozwi¹zanie (o ile istnieje)
 					else if (tInfo.inside && sfKeyboard_isKeyPressed(sfKeyS))
 					{
 						tInfo.more = 1;
+						tInfo.amount++;
 						tInfo.decremented = false;
 
 						sfSleep(sfMilliseconds(25));
@@ -388,8 +408,19 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 							tInfo.more = -1;
 							tInfo.decremented = false;
 							tInfo.inside = false;
+							tInfo.amount = 0;
 							sfThread_terminate(thread);
 							memcpy(tab, helpTab, sizeof(struct tileInfo) * sudokuSize * sudokuSize);
+
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Brak dodatkowych roziwazan");
+						}
+						else
+						{
+							char buffer[100];
+
+							sprintf(buffer, "Pokazano mozliwe rozwiazanie nr %d", tInfo.amount);
+
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
 						}
 					}
 				}
@@ -398,7 +429,17 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 				{
 					//Cofiemy do stanu poprzedniego
 					if (sfKeyboard_isKeyPressed(sfKeyZ))
-						czytajPoczatekListyJednokierunkowej(&head, tab);
+					{
+						if (tile_head)
+						{
+							char buffer[100];
+
+							sprintf(buffer, "Cofniêto ruch z liczby %d na liczbe %d na pozycji %d, %d", tab[tile_head->y][tile_head->x].value, tile_head->value, tile_head->x, tile_head->y);
+
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
+						}
+						tile_czytajPoczatekListyJednokierunkowej(&tile_head, tab);
+					}
 
 					//Inna forma wpisywania liczb do tablicy Sudoku
 					if (event.text.unicode - 75 >= 0 && event.text.unicode - 75 < 10)
@@ -406,6 +447,12 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 						hasClicked = true;
 						leftMouse = true;
 						currentNumber = event.text.unicode - 75;
+
+						char buffer[100];
+
+						sprintf(buffer, "U¿ytkownik wybra³ liczbê %d", currentNumber);
+
+						action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
 					}
 
 					//0 w unicodzie ma wartosc 75
@@ -417,7 +464,10 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 		if (!tInfo.inside && check)
 		{
 			if (hasWon(tab))
+			{
 				changeDisplayedText(&wyswietlane, "Congratulations! You have won!", &positions);
+				action_dodajNaKoniecListyJednokierunkowej(&action_head, "U¿ytkownik wygral");
+			}
 			else
 				changeDisplayedText(&wyswietlane, "Sudoku", &positions);
 
@@ -425,47 +475,63 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 		}
 
 		//Czy zosta³y wciœnite przyciski wczytaj, zapisz, generuj
-		if (sfMouse_getPosition(win).y >= 0 && sfMouse_getPosition(win).y <= 53 && hasClicked)
+		if (!tInfo.inside)
 		{
-			int num = 0;
-			for (int i = 0; i < 3; i++)
+			if (sfMouse_getPosition(win).y >= 0 && sfMouse_getPosition(win).y <= 53 && hasClicked)
 			{
-				if (sfMouse_getPosition(win).x >= 302 + i * 48 && sfMouse_getPosition(win).x < 302 + (i + 1) * 48)
+				int num = 0;
+				for (int i = 0; i < 3; i++)
 				{
-					num = i + 1;
-					break;
+					if (sfMouse_getPosition(win).x >= 302 + i * 48 && sfMouse_getPosition(win).x < 302 + (i + 1) * 48)
+					{
+						num = i + 1;
+						break;
+					}
 				}
-			}
 
-			switch (num)
-			{
-			case 1:
-			{
-				if (save(tab))
-					changeDisplayedText(&wyswietlane, "Saved", &positions);
-				else
-					changeDisplayedText(&wyswietlane, "Couldn't save", &positions);
-			} break;
-			case 2:
-			{
-				if (load(tab))
+				switch (num)
 				{
-					usunListeJednokierunkowa(&head);
-					changeDisplayedText(&wyswietlane, "Loaded", &positions);
+					case 1:
+					{
+						if (save(tab))
+						{
+							changeDisplayedText(&wyswietlane, "Saved", &positions);
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Zapisano");
+						}
+						else
+						{
+							changeDisplayedText(&wyswietlane, "Couldn't save", &positions);
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Nie da³o siê zapisaæ");
+						}
+					} break;
+					case 2:
+					{
+						if (load(tab))
+						{
+							tile_usunListeJednokierunkowa(&tile_head);
+							changeDisplayedText(&wyswietlane, "Loaded", &positions);
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Wczytano");
+						}
+						else
+						{
+							changeDisplayedText(&wyswietlane, "Couldn't load", &positions);
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Nie da³o siê wczytaæ");
+						}
+					} break;
+					case 3:
+					{
+						tile_usunListeJednokierunkowa(&tile_head);
+						fillSudoku(tab, 0);
+						bool redo = true;
+						generateSudoku(tab, &redo);
+						removeElements(tab, elementsToRemove);
+						memcpy(helpTab, tab, sudokuSize * sudokuSize);
+						changeDisplayedText(&wyswietlane, "Generated", &positions);
+						action_dodajNaKoniecListyJednokierunkowej(&action_head, "Wygenerowano now¹ tablicê");
+					} break;
+					default:
+						break;
 				}
-				else
-					changeDisplayedText(&wyswietlane, "Couldn't load", &positions);
-			} break;
-			case 3:
-			{
-				usunListeJednokierunkowa(&head);
-				fillSudoku(tab, 0);
-				bool redo = true;
-				generateSudoku(tab, &redo);
-				removeElements(tab, elementsToRemove);
-				memcpy(helpTab, tab, sudokuSize * sudokuSize);
-				changeDisplayedText(&wyswietlane, "Generated", &positions);
-			} break;
 			}
 		}
 
@@ -477,6 +543,12 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 				if (sfMouse_getPosition(win).x >= 8 + i * 48.5 + (int)(i / 3) * 3 && sfMouse_getPosition(win).x < 8 + (i + 1) * 48.5 + (int)(i / 3) * 4)
 				{
 					currentNumber = i + 1;
+
+					char buffer[100];
+
+					sprintf(buffer, "U¿ytkownik wybra³ liczbê %d", currentNumber);
+
+					action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
 					break;
 				}
 			}
@@ -493,13 +565,26 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 					{
 						if (leftMouse && tab[j][i].canBeModified && checkColumn(tab, i, currentNumber) && checkRow(tab, j, currentNumber) && checkSquare(tab, i / 3, j / 3, currentNumber))
 						{
-							dodajDoListyJednokierunkowej(&head, tab[j][i].value, i, j);
+							tile_dodajDoListyJednokierunkowej(&tile_head, tab[j][i].value, i, j);
 							tab[j][i].value = currentNumber;
+
+							char buffer[100];
+
+							sprintf(buffer, "U¿ytkownik wpisa³ liczbê %d na pozycjê %d, %d", currentNumber, i, j);
+
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
+
 							check = true;
 						}
 						if (rightMouse && tab[j][i].canBeModified)
 						{
-							dodajDoListyJednokierunkowej(&head, tab[j][i].value, i, j);
+							char buffer[100];
+
+							sprintf(buffer, "U¿ytkownik usun¹³ liczbê %d z pozycji %d, %d", tab[j][i].value, i, j);
+
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
+
+							tile_dodajDoListyJednokierunkowej(&tile_head, tab[j][i].value, i, j);
 							tab[j][i].value = 0;
 							check = true;
 						}
@@ -555,7 +640,7 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 		}
 
 		//Wyœwietlamy liczby przechowane w tablicy na ekran w odpowiednie miejsca
-		char c[2];
+		char c[4];
 		for (int i = 0; i < 9; i++)
 		{
 			for (int j = 0; j < 9; j++)
@@ -578,6 +663,8 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 		sfRenderWindow_display(win);
 	}
 
+	action_zapiszListeJednokierunkowaDoPliku(action_head);
+
 	//Po wyjœciu z okna, czyœcimy po siebie
 
 	sfThread_terminate(thread);
@@ -592,21 +679,22 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 	free(positions);
 	free(wyswietlane);
 
-	usunListeJednokierunkowa(&head);
+	tile_usunListeJednokierunkowa(&tile_head);
+	action_usunListeJednokierunkowa(&action_head);
 }
 
-void dodajDoListyJednokierunkowej(struct history** head, int value, int x, int y)
+void tile_dodajDoListyJednokierunkowej(struct tile_history** head, int value, int x, int y)
 {
 	if (*head == NULL)
 	{
-		*head = (struct history*)malloc(sizeof(struct history));
+		*head = (struct history*)malloc(sizeof(struct tile_history));
 		(*head)->next = NULL;
 		(*head)->value = value;
 		(*head)->x = x;
 		(*head)->y = y;
 	}
 	else {
-		struct history* tmp = (struct history*)malloc(sizeof(struct history));
+		struct tile_history* tmp = (struct history*)malloc(sizeof(struct tile_history));
 		tmp->next = *head;
 		tmp->value = value;
 		tmp->x = x;
@@ -615,23 +703,75 @@ void dodajDoListyJednokierunkowej(struct history** head, int value, int x, int y
 	}
 }
 
-void czytajPoczatekListyJednokierunkowej(struct history** head, struct tileInfo tab[sudokuSize][sudokuSize])
+void tile_czytajPoczatekListyJednokierunkowej(struct tile_history** head, struct tileInfo tab[sudokuSize][sudokuSize])
 {
 	if (*head)
 	{
 		tab[(*head)->y][(*head)->x].value = (*head)->value;
 
-		struct history* tmp = (*head)->next;
+		struct tile_history* tmp = (*head)->next;
 		free(*head);
 		*head = tmp;
 	}
 }
 
-void usunListeJednokierunkowa(struct history** head)
+void tile_usunListeJednokierunkowa(struct tile_history** head)
 {
 	while (*head)
 	{
-		struct history* tmp = (*head)->next;
+		struct tile_history* tmp = (*head)->next;
+		free(*head);
+		*head = tmp;
+	}
+}
+
+void action_dodajNaKoniecListyJednokierunkowej(struct action_history** head, char* tekst)
+{
+	if (*head == NULL)
+	{
+		*head = (struct action_history*)malloc(sizeof(struct action_history));
+		(*head)->str = (char*)malloc(strlen(tekst) + 1);
+		strcpy((*head)->str, tekst);
+		(*head)->next = NULL;
+
+		return;
+	}
+
+	struct action_history* tmp = *head;
+
+	while (tmp->next)
+		tmp = tmp->next;
+
+	tmp->next = (struct action_history*)malloc(sizeof(struct action_history));
+	tmp->next->str = (char*)malloc(strlen(tekst) + 1);
+	strcpy(tmp->next->str, tekst);
+	tmp->next->next = NULL;
+}
+
+void action_zapiszListeJednokierunkowaDoPliku(struct action_history* head)
+{
+	FILE* plik = fopen("historia_akcji.txt", "w");
+
+	if (plik)
+	{
+		int index = 1;
+		while (head)
+		{
+			fprintf(plik, "%d. %s\n", index, head->str);
+			index++;
+			head = head->next;
+		}
+
+		fclose(plik);
+	}
+}
+
+void action_usunListeJednokierunkowa(struct action_history** head)
+{
+	while (*head)
+	{
+		struct action_history* tmp = (*head)->next;
+		free((*head)->str);
 		free(*head);
 		*head = tmp;
 	}

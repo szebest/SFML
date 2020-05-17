@@ -27,16 +27,23 @@ typedef struct threadInfo
 {
 	struct tileInfo(*tab)[sudokuSize];
 	short int more;
+	int amount;
 	bool decremented;
 	bool inside;
 };
 
-typedef struct history
+typedef struct tile_history
 {
 	int x;
 	int y;
 	int value;
-	struct history* next;
+	struct tile_history* next;
+};
+
+typedef struct action_history
+{
+	char* str;
+	struct action_history* next;
 };
 
 #endif
