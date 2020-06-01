@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include "struktury.h"
 
+/** @file */
+
 /** Funkcja wczytuje planszê sudoku z pliku binarnego
 * @param tab Informacje o tablicy sudoku
 * @return Zwraca, czy uda³o siê wczytaæ tablicê z pliku

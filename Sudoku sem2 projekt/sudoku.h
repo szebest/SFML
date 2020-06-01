@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include "struktury.h"
 
+/** @file */
+
 /** Funkcja wype³nia sudoku podan¹ liczb¹
 * @param tab Informacje o tablicy sudoku
 * @param number Liczba, któr¹ zostanie wype³niona tablica

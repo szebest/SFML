@@ -32,6 +32,12 @@ typedef struct threadInfo
 	bool inside;
 };
 
+/** Informacje o historii ostatnio wykonanych ruchów przez u¿ytkownika
+* @param value przechowuje zapisan¹ liczbê z pola sudoku
+* @param x pozycja x na planszy sudoku
+* @param y pozycja y na planszy sudoku
+* @param next wskaŸnik na kolejny element listy jednokierunkowej
+*/
 typedef struct tile_history
 {
 	int x;
@@ -40,6 +46,10 @@ typedef struct tile_history
 	struct tile_history* next;
 };
 
+/** Informacje o historii ostatnio wykonanych akcji przez u¿ytkownika
+* @param str napis, który przechowuje tekst wykonanej akcji przez u¿ytkownika
+* @param next wskaŸnik na kolejny element listy jednokierunkowej
+*/
 typedef struct action_history
 {
 	char* str;

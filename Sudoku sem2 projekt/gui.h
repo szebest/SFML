@@ -13,6 +13,8 @@
 
 #define elementsToRemove 25
 
+/** @file */
+
 /** Funkcja wyœwietla na ekran podany napis
 * @param win WskaŸnik na okno, na którym ma byæ napis narysowany
 * @param color Jakiego koloru ma byæ napis
