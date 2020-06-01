@@ -1,23 +1,8 @@
-#ifndef FUNKCJE_H
-#define FUNKCJE_H
+#ifndef SUDOKU_H
+#define SUDOKU_H
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <SFML/Graphics.h>
-
 #include "struktury.h"
-
-#define elementsToRemove 25
-
-#define sudokuSize 9
-
-#define WIDTH 453
-
-#define HEIGHT 542
-
-/** @file */
 
 /** Funkcja wype³nia sudoku podan¹ liczb¹
 * @param tab Informacje o tablicy sudoku
@@ -26,36 +11,11 @@
 */
 void fillSudoku(struct tileInfo tab[sudokuSize][sudokuSize], int number);
 
-/** Funkcja zapisuje aktualn¹ planszê sudoku do pliku binarnego
-* @param tab Informacje o tablicy sudoku
-* @return Zwraca, czy uda³o siê zapisaæ do pliku
-*/
-bool save(const struct tileInfo tab[sudokuSize][sudokuSize]);
-
 /** Funkcja sprawdza poprawnoœæ tablicy sudoku
 * @param tab Informacje o tablicy sudoku
 * @return Zwraca, czy tablica sudoku jest poprawna
 */
 bool isValid(struct tileInfo tab[sudokuSize][sudokuSize]);
-
-/** Funkcja wczytuje planszê sudoku z pliku binarnego
-* @param tab Informacje o tablicy sudoku
-* @return Zwraca, czy uda³o siê wczytaæ tablicê z pliku
-*/
-bool load(struct tileInfo tab[sudokuSize][sudokuSize]);
-
-/** Funkcja wyœwietla na ekran podany napis
-* @param win WskaŸnik na okno, na którym ma byæ napis narysowany
-* @param color Jakiego koloru ma byæ napis
-* @param font WskaŸnik na czcionkê
-* @param x Pozycja x na oknie
-* @param y Pozycja y na oknie
-* @param charSize Rozmiar czcionki
-* @param napis Napis do wyœwietlenia
-* @param center Czy tekst ma zostaæ wyœrodkowany
-* @return Funkcja nic nie zwraca
-*/
-void displayString(const sfRenderWindow* win, const sfColor color, const sfFont* font, const int x, const int y, const int charSize, const char* napis, const bool center);
 
 /** Funkcja sprawdza, czy mo¿liwe jest umieszczenie danej liczby w danej kolumnie
 * @param tab Informacje o tablicy sudoku
@@ -107,31 +67,5 @@ void solveSudoku(struct threadInfo* tInfo);
 * @return Zwraca, czy tablica jest w pe³ni rozwi¹zana
 */
 bool hasWon(struct tileInfo tab[sudokuSize][sudokuSize]);
-
-/** Funckja zmienia wyœwietlany napis
-* @param dst wskaŸnik na oryginalny napis, który ma zostaæ zedytowany
-* @param src napis, który mamy zapisaæ do zmiennej src
-* @param positions wskaŸnik na tablicê, która przechowuje pozycje ka¿dej z liter w napisie
-* @return Funkcja nic nie zwraca
-*/
-void changeDisplayedText(char** dst, char* src, int** positions);
-
-/** G³ówna funckja, obs³uguj¹ca zdarzenia i okno
-* @param tab Informacje o tablicy sudoku
-* @return Funkcja nic nie zwraca
-*/
-void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize]);
-
-void tile_dodajDoListyJednokierunkowej(struct tile_history** head, int value, int x, int y);
-
-void tile_czytajPoczatekListyJednokierunkowej(struct tile_history** head, struct tileInfo tab[sudokuSize][sudokuSize]);
-
-void tile_usunListeJednokierunkowa(struct tile_history** head);
-
-void action_dodajNaKoniecListyJednokierunkowej(struct action_history** head, char* tekst);
-
-void action_zapiszListeJednokierunkowaDoPliku(struct action_history* head);
-
-void action_usunListeJednokierunkowa(struct action_history** head);
 
 #endif

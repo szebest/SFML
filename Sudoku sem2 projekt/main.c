@@ -1,10 +1,11 @@
 ﻿#pragma warning(disable:4996)
 #include <time.h>
 
-#define elementsToRemove 25
-
 #include "struktury.h"
-#include "funkcje.h"
+#include "sudoku.h"
+#include "io.h"
+#include "gui.h"
+#include "listy.h"
 
 int main()
 {

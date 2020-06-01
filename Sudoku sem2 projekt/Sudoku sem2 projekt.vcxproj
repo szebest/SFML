@@ -129,8 +129,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="funkcje.c" />
+    <ClCompile Include="gui.c" />
+    <ClCompile Include="io.c" />
+    <ClCompile Include="listy.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="sudoku.c" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf" />
@@ -148,8 +151,11 @@
     <Image Include="sudoku-blankgrid.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="funkcje.h" />
+    <ClInclude Include="gui.h" />
+    <ClInclude Include="io.h" />
+    <ClInclude Include="listy.h" />
     <ClInclude Include="struktury.h" />
+    <ClInclude Include="sudoku.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

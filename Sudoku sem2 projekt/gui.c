@@ -1,89 +1,5 @@
 #pragma warning(disable:4996)
-#include "funkcje.h"
-#include "struktury.h"
-
-void fillSudoku(struct tileInfo tab[sudokuSize][sudokuSize], int number)
-{
-	for (int i = 0; i < sudokuSize; i++)
-	{
-		for (int j = 0; j < sudokuSize; j++)
-		{
-			tab[i][j].value = number;
-		}
-	}
-}
-
-bool save(const struct tileInfo tab[sudokuSize][sudokuSize])
-{
-	FILE* fout = fopen("save.dat", "wb"); // save
-
-	if (fout == NULL)
-		return false;
-
-	fwrite(tab, sizeof(struct tileInfo), sudokuSize * sudokuSize, fout);
-
-	fclose(fout);
-
-	return true;
-}
-
-bool isValid(struct tileInfo tab[sudokuSize][sudokuSize])
-{
-	//Sprawdza czy liczby sa w odpowiednim przedziale
-	for (int i = 0; i < sudokuSize; i++)
-		for (int j = 0; j < sudokuSize; j++)
-			if (tab[i][j].value > 9 || tab[i][j].value < 0)
-				return false;
-
-	//Sprawdza kolumny i wiersze
-	for (int i = 0; i < sudokuSize; i++)
-		for (int j = 0; j < sudokuSize; j++)
-			for (int k = 0; k < sudokuSize; k++)
-				if (j != k && ((tab[i][j].value == tab[i][k].value && tab[i][j].value != 0) || (tab[j][i].value != 0 && tab[j][i].value == tab[k][i].value != 0)))
-					return false;
-
-	//Sprawdza kwadraty
-	for (int i = 0; i < sudokuSize / 3; i++)
-		for (int j = 0; j < sudokuSize / 3; j++)
-			for (int k = 0; k < sudokuSize / 3; k++)
-				for (int m = 0; m < sudokuSize / 3; m++)
-					for (int n = 0; n < sudokuSize / 3; n++)
-						for (int o = 0; o < sudokuSize / 3; o++)
-							if (k != n && m != o && tab[i * 3 + k][j * 3 + m].value == tab[i * 3 + n][j * 3 + o].value && tab[i * 3 + k][j * 3 + m].value != 0)
-								return false;
-
-	return true;
-}
-
-bool load(struct tileInfo tab[sudokuSize][sudokuSize])
-{
-	struct tileInfo tmp[sudokuSize][sudokuSize];
-
-	memcpy(tmp, tab, sizeof(struct tileInfo) * sudokuSize * sudokuSize);
-
-	FILE* fin = fopen("save.dat", "rb"); // load
-
-	if (fin == NULL)
-		return false;
-
-	fseek(fin, 0, SEEK_END);
-
-	int length = ftell(fin);
-
-	fseek(fin, 0, SEEK_SET);
-
-	if (length == sudokuSize * sudokuSize * sizeof(struct tileInfo)) fread(tab, sizeof(struct tileInfo), sudokuSize * sudokuSize, fin);
-
-	fclose(fin);
-
-	if (!isValid(tab) || length != sudokuSize * sudokuSize * sizeof(struct tileInfo))
-	{
-		memcpy(tab, tmp, sizeof(struct tileInfo) * sudokuSize * sudokuSize);
-		return false;
-	}
-
-	return true;
-}
+#include "gui.h"
 
 void displayString(const sfRenderWindow* win, const sfColor color, const sfFont* font, const int x, const int y, const int charSize, const char* napis, const bool center)
 {
@@ -104,162 +20,6 @@ void displayString(const sfRenderWindow* win, const sfColor color, const sfFont*
 	sfRenderWindow_drawText(win, text, NULL);
 
 	sfText_destroy(text);
-}
-
-bool checkColumn(struct tileInfo tab[sudokuSize][sudokuSize], int i, int number)
-{
-	for (int j = 0; j < sudokuSize; j++)
-	{
-		if (tab[j][i].value == number)
-			return false;
-	}
-
-	return true;
-}
-
-bool checkRow(struct tileInfo tab[sudokuSize][sudokuSize], int i, int number)
-{
-	for (int j = 0; j < sudokuSize; j++)
-	{
-		if (tab[i][j].value == number)
-			return false;
-	}
-
-	return true;
-}
-
-bool checkSquare(struct tileInfo tab[sudokuSize][sudokuSize], int x, int y, int number)
-{
-	for (int i = 0; i < 3; i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			if (tab[y * 3 + i][x * 3 + j].value == number)
-				return false;
-		}
-	}
-
-	return true;
-}
-
-void removeElements(struct tileInfo tab[sudokuSize][sudokuSize], int elements)
-{
-	if (elements > sudokuSize* sudokuSize)
-		elements = sudokuSize * sudokuSize;
-
-	int losx, losy;
-	while (elements > 0)
-	{
-		do
-		{
-			losx = rand() % sudokuSize;
-			losy = rand() % sudokuSize;
-		} while (tab[losy][losx].value == 0);
-
-		tab[losy][losx].value = 0;
-		tab[losy][losx].canBeModified = true;
-
-		elements--;
-	}
-}
-
-void generateSudoku(struct tileInfo tab[sudokuSize][sudokuSize], bool* redo)
-{
-	for (int y = 0; y < sudokuSize; y++)
-	{
-		for (int x = 0; x < sudokuSize; x++)
-		{
-			if (!(*redo))
-				return;
-
-			if (tab[y][x].value == 0)
-			{
-				//Liczby losowane s¹ w ten sposób, aby zapewniæ losowoœæ, podczas generowania sudoku. W przeciwnym razie rozwi¹zana tablica Sudoku wygl¹da³aby zawsze identycznie
-				bool hashtable[10] = { false };
-				int liczba = 0;
-				while (liczba <= 9)
-				{
-					int n = rand() % 9 + 1;
-
-					if (!hashtable[n - 1])
-					{
-						liczba++;
-						hashtable[n] = true;
-
-						if (checkRow(tab, y, n) && checkColumn(tab, x, n) && checkSquare(tab, x / 3, y / 3, n))
-						{
-
-							tab[y][x].value = n;
-							tab[y][x].canBeModified = false;
-							generateSudoku(tab, redo);
-							if (!(*redo))
-								return;
-							tab[y][x].value = 0;
-						}
-					}
-				}
-				return;
-			}
-		}
-	}
-
-	(*redo) = false;
-}
-
-//Funkcja podobna do powy¿szej, lecz jest przerobiona, aby mog³a dzia³aæ jako osobny w¹tek
-void solveSudoku(struct threadInfo* tInfo)
-{
-	tInfo->inside = true;
-	if (!tInfo->decremented)
-	{
-		tInfo->more--;
-		tInfo->decremented = true;
-	}
-	for (int y = 0; y < sudokuSize; y++)
-	{
-		for (int x = 0; x < sudokuSize; x++)
-		{
-			tInfo->tab[y][x].canBeModified = false;
-			if (tInfo->more < 0)
-				return;
-
-			if (tInfo->tab[y][x].value == 0)
-			{
-				for (int n = 1; n < 10; n++)
-				{
-					if (checkRow(tInfo->tab, y, n) && checkColumn(tInfo->tab, x, n) && checkSquare(tInfo->tab, x / 3, y / 3, n))
-					{
-						tInfo->tab[y][x].value = n;
-						solveSudoku(tInfo);
-
-						if (tInfo->more < 0)
-							return;
-
-						tInfo->tab[y][x].value = 0;
-					}
-				}
-				return;
-			}
-		}
-	}
-
-	//Dopóki zmienna nie zostanie zinkrementowana poprzez kolejne wciœniêcie klawiszu 'S', czekamy w nieskoñczonej pêtli
-	while (tInfo->more == 0)
-		sfSleep(sfMilliseconds(20));
-}
-
-bool hasWon(struct tileInfo tab[sudokuSize][sudokuSize])
-{
-	for (int i = 0; i < sudokuSize; i++)
-	{
-		for (int j = 0; j < sudokuSize; j++)
-		{
-			if (tab[i][j].value == 0)
-				return false;
-		}
-	}
-
-	return true;
 }
 
 void changeDisplayedText(char** dst, char* src, int** positions)
@@ -335,7 +95,7 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 	sfRenderWindow_setVerticalSyncEnabled(win, true);
 	sfWindow_setKeyRepeatEnabled(win, false);
 
-	action_dodajNaKoniecListyJednokierunkowej(&action_head, "Otwarto aplikacje");
+	action_dodajNaKoniecListyJednokierunkowej(&action_head, "Otwarto aplikacjê");
 
 	//G³ówna pêtla okna
 	while (sfRenderWindow_isOpen(win))
@@ -376,6 +136,8 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 						tInfo.amount = 0;
 						sfThread_terminate(thread);
 						memcpy(tab, helpTab, sizeof(struct tileInfo) * sudokuSize * sudokuSize);
+
+						action_dodajNaKoniecListyJednokierunkowej(&action_head, "U¿ytkownik wy³¹czy³ podpowiedzi");
 					}
 					//W³¹czamy w¹tek
 					else if (!tInfo.inside && sfKeyboard_isKeyPressed(sfKeyS))
@@ -384,13 +146,13 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 						tInfo.more = 1;
 						tInfo.amount++;
 						tInfo.decremented = false;
-						
+
 						char buffer[100];
 
 						sprintf(buffer, "Pokazano mo¿liwe rozwiazanie nr %d", tInfo.amount);
 
 						action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
-						
+
 						sfThread_launch(thread);
 					}
 					//Ujawniamy kolejne rozwi¹zanie (o ile istnieje)
@@ -412,13 +174,14 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 							sfThread_terminate(thread);
 							memcpy(tab, helpTab, sizeof(struct tileInfo) * sudokuSize * sudokuSize);
 
-							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Brak dodatkowych roziwazan");
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Brak dodatkowych rozwi¹zañ");
+							action_dodajNaKoniecListyJednokierunkowej(&action_head, "U¿ytkownik wy³¹czy³ podpowiedzi");
 						}
 						else
 						{
 							char buffer[100];
 
-							sprintf(buffer, "Pokazano mozliwe rozwiazanie nr %d", tInfo.amount);
+							sprintf(buffer, "Pokazano mo¿liwe rozwi¹zanie nr %d", tInfo.amount);
 
 							action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
 						}
@@ -491,46 +254,46 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 
 				switch (num)
 				{
-					case 1:
+				case 1:
+				{
+					if (save(tab))
 					{
-						if (save(tab))
-						{
-							changeDisplayedText(&wyswietlane, "Saved", &positions);
-							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Zapisano");
-						}
-						else
-						{
-							changeDisplayedText(&wyswietlane, "Couldn't save", &positions);
-							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Nie da³o siê zapisaæ");
-						}
-					} break;
-					case 2:
+						changeDisplayedText(&wyswietlane, "Saved", &positions);
+						action_dodajNaKoniecListyJednokierunkowej(&action_head, "Zapisano");
+					}
+					else
 					{
-						if (load(tab))
-						{
-							tile_usunListeJednokierunkowa(&tile_head);
-							changeDisplayedText(&wyswietlane, "Loaded", &positions);
-							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Wczytano");
-						}
-						else
-						{
-							changeDisplayedText(&wyswietlane, "Couldn't load", &positions);
-							action_dodajNaKoniecListyJednokierunkowej(&action_head, "Nie da³o siê wczytaæ");
-						}
-					} break;
-					case 3:
+						changeDisplayedText(&wyswietlane, "Couldn't save", &positions);
+						action_dodajNaKoniecListyJednokierunkowej(&action_head, "Nie da³o siê zapisaæ");
+					}
+				} break;
+				case 2:
+				{
+					if (load(tab))
 					{
 						tile_usunListeJednokierunkowa(&tile_head);
-						fillSudoku(tab, 0);
-						bool redo = true;
-						generateSudoku(tab, &redo);
-						removeElements(tab, elementsToRemove);
-						memcpy(helpTab, tab, sudokuSize * sudokuSize);
-						changeDisplayedText(&wyswietlane, "Generated", &positions);
-						action_dodajNaKoniecListyJednokierunkowej(&action_head, "Wygenerowano now¹ tablicê");
-					} break;
-					default:
-						break;
+						changeDisplayedText(&wyswietlane, "Loaded", &positions);
+						action_dodajNaKoniecListyJednokierunkowej(&action_head, "Wczytano");
+					}
+					else
+					{
+						changeDisplayedText(&wyswietlane, "Couldn't load", &positions);
+						action_dodajNaKoniecListyJednokierunkowej(&action_head, "Nie da³o siê wczytaæ");
+					}
+				} break;
+				case 3:
+				{
+					tile_usunListeJednokierunkowa(&tile_head);
+					fillSudoku(tab, 0);
+					bool redo = true;
+					generateSudoku(tab, &redo);
+					removeElements(tab, elementsToRemove);
+					memcpy(helpTab, tab, sudokuSize * sudokuSize);
+					changeDisplayedText(&wyswietlane, "Generated", &positions);
+					action_dodajNaKoniecListyJednokierunkowej(&action_head, "Wygenerowano now¹ tablicê");
+				} break;
+				default:
+					break;
 				}
 			}
 		}
@@ -663,6 +426,8 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 		sfRenderWindow_display(win);
 	}
 
+	action_dodajNaKoniecListyJednokierunkowej(&action_head, "Zamkniêto aplikacjê");
+
 	action_zapiszListeJednokierunkowaDoPliku(action_head);
 
 	//Po wyjœciu z okna, czyœcimy po siebie
@@ -681,98 +446,4 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 
 	tile_usunListeJednokierunkowa(&tile_head);
 	action_usunListeJednokierunkowa(&action_head);
-}
-
-void tile_dodajDoListyJednokierunkowej(struct tile_history** head, int value, int x, int y)
-{
-	if (*head == NULL)
-	{
-		*head = (struct history*)malloc(sizeof(struct tile_history));
-		(*head)->next = NULL;
-		(*head)->value = value;
-		(*head)->x = x;
-		(*head)->y = y;
-	}
-	else {
-		struct tile_history* tmp = (struct history*)malloc(sizeof(struct tile_history));
-		tmp->next = *head;
-		tmp->value = value;
-		tmp->x = x;
-		tmp->y = y;
-		*head = tmp;
-	}
-}
-
-void tile_czytajPoczatekListyJednokierunkowej(struct tile_history** head, struct tileInfo tab[sudokuSize][sudokuSize])
-{
-	if (*head)
-	{
-		tab[(*head)->y][(*head)->x].value = (*head)->value;
-
-		struct tile_history* tmp = (*head)->next;
-		free(*head);
-		*head = tmp;
-	}
-}
-
-void tile_usunListeJednokierunkowa(struct tile_history** head)
-{
-	while (*head)
-	{
-		struct tile_history* tmp = (*head)->next;
-		free(*head);
-		*head = tmp;
-	}
-}
-
-void action_dodajNaKoniecListyJednokierunkowej(struct action_history** head, char* tekst)
-{
-	if (*head == NULL)
-	{
-		*head = (struct action_history*)malloc(sizeof(struct action_history));
-		(*head)->str = (char*)malloc(strlen(tekst) + 1);
-		strcpy((*head)->str, tekst);
-		(*head)->next = NULL;
-
-		return;
-	}
-
-	struct action_history* tmp = *head;
-
-	while (tmp->next)
-		tmp = tmp->next;
-
-	tmp->next = (struct action_history*)malloc(sizeof(struct action_history));
-	tmp->next->str = (char*)malloc(strlen(tekst) + 1);
-	strcpy(tmp->next->str, tekst);
-	tmp->next->next = NULL;
-}
-
-void action_zapiszListeJednokierunkowaDoPliku(struct action_history* head)
-{
-	FILE* plik = fopen("historia_akcji.txt", "w");
-
-	if (plik)
-	{
-		int index = 1;
-		while (head)
-		{
-			fprintf(plik, "%d. %s\n", index, head->str);
-			index++;
-			head = head->next;
-		}
-
-		fclose(plik);
-	}
-}
-
-void action_usunListeJednokierunkowa(struct action_history** head)
-{
-	while (*head)
-	{
-		struct action_history* tmp = (*head)->next;
-		free((*head)->str);
-		free(*head);
-		*head = tmp;
-	}
 }
