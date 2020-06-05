@@ -17,14 +17,14 @@ bool save(const struct tileInfo tab[sudokuSize][sudokuSize])
 
 bool load(struct tileInfo tab[sudokuSize][sudokuSize])
 {
-	struct tileInfo tmp[sudokuSize][sudokuSize];
-
-	memcpy(tmp, tab, sizeof(struct tileInfo) * sudokuSize * sudokuSize);
-
 	FILE* fin = fopen("save.dat", "rb"); // load
 
 	if (fin == NULL)
 		return false;
+
+	struct tileInfo tmp[sudokuSize][sudokuSize];
+
+	memcpy(tmp, tab, sizeof(struct tileInfo) * sudokuSize * sudokuSize);
 
 	fseek(fin, 0, SEEK_END);
 
@@ -32,7 +32,8 @@ bool load(struct tileInfo tab[sudokuSize][sudokuSize])
 
 	fseek(fin, 0, SEEK_SET);
 
-	if (length == sudokuSize * sudokuSize * sizeof(struct tileInfo)) fread(tab, sizeof(struct tileInfo), sudokuSize * sudokuSize, fin);
+	if (length == sudokuSize * sudokuSize * sizeof(struct tileInfo)) 
+		fread(tab, sizeof(struct tileInfo), sudokuSize * sudokuSize, fin);
 
 	fclose(fin);
 

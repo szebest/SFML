@@ -265,7 +265,7 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 					else
 					{
 						changeDisplayedText(&wyswietlane, "Couldn't save", &positions);
-						action_dodajNaKoniecListyJednokierunkowej(&action_head, "Nie da³o siê zapisaæ");
+						action_dodajNaKoniecListyJednokierunkowej(&action_head, "Nie uda³o siê zapisaæ");
 					}
 				} break;
 				case 2:
@@ -279,7 +279,7 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 					else
 					{
 						changeDisplayedText(&wyswietlane, "Couldn't load", &positions);
-						action_dodajNaKoniecListyJednokierunkowej(&action_head, "Nie da³o siê wczytaæ");
+						action_dodajNaKoniecListyJednokierunkowej(&action_head, "Nie uda³o siê wczytaæ");
 					}
 				} break;
 				case 3:

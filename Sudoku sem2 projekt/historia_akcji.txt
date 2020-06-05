@@ -1,2 +1,51 @@
 1. Otwarto aplikacjê
-2. Zamkniêto aplikacjê
+2. Pokazano mo¿liwe rozwiazanie nr 1
+3. U¿ytkownik wy³¹czy³ podpowiedzi
+4. U¿ytkownik wybra³ liczbê 1
+5. U¿ytkownik wpisa³ liczbê 1 na pozycjê 1, 0
+6. U¿ytkownik wybra³ liczbê 8
+7. U¿ytkownik wpisa³ liczbê 8 na pozycjê 0, 1
+8. U¿ytkownik usun¹³ liczbê 8 z pozycji 0, 1
+9. U¿ytkownik wpisa³ liczbê 8 na pozycjê 0, 1
+10. U¿ytkownik usun¹³ liczbê 8 z pozycji 0, 1
+11. U¿ytkownik wpisa³ liczbê 8 na pozycjê 0, 1
+12. U¿ytkownik usun¹³ liczbê 8 z pozycji 0, 1
+13. U¿ytkownik wpisa³ liczbê 8 na pozycjê 0, 1
+14. Wygenerowano now¹ tablicê
+15. Cofniêto ruch z liczby 0 na liczbe 0 na pozycji 0, 1
+16. Cofniêto ruch z liczby 0 na liczbe 8 na pozycji 0, 1
+17. Cofniêto ruch z liczby 8 na liczbe 0 na pozycji 0, 1
+18. Cofniêto ruch z liczby 0 na liczbe 8 na pozycji 0, 1
+19. Cofniêto ruch z liczby 8 na liczbe 0 na pozycji 0, 1
+20. Cofniêto ruch z liczby 0 na liczbe 8 na pozycji 0, 1
+21. Pokazano mo¿liwe rozwiazanie nr 1
+22. U¿ytkownik wy³¹czy³ podpowiedzi
+23. Pokazano mo¿liwe rozwiazanie nr 1
+24. U¿ytkownik wy³¹czy³ podpowiedzi
+25. Pokazano mo¿liwe rozwiazanie nr 1
+26. U¿ytkownik wy³¹czy³ podpowiedzi
+27. Pokazano mo¿liwe rozwiazanie nr 1
+28. U¿ytkownik wy³¹czy³ podpowiedzi
+29. Pokazano mo¿liwe rozwiazanie nr 1
+30. U¿ytkownik wy³¹czy³ podpowiedzi
+31. Pokazano mo¿liwe rozwiazanie nr 1
+32. U¿ytkownik wy³¹czy³ podpowiedzi
+33. Pokazano mo¿liwe rozwiazanie nr 1
+34. Brak dodatkowych rozwi¹zañ
+35. U¿ytkownik wy³¹czy³ podpowiedzi
+36. Pokazano mo¿liwe rozwiazanie nr 1
+37. Brak dodatkowych rozwi¹zañ
+38. U¿ytkownik wy³¹czy³ podpowiedzi
+39. Pokazano mo¿liwe rozwiazanie nr 1
+40. U¿ytkownik wy³¹czy³ podpowiedzi
+41. U¿ytkownik usun¹³ liczbê 8 z pozycji 0, 1
+42. Pokazano mo¿liwe rozwiazanie nr 1
+43. Brak dodatkowych rozwi¹zañ
+44. U¿ytkownik wy³¹czy³ podpowiedzi
+45. Pokazano mo¿liwe rozwiazanie nr 1
+46. Brak dodatkowych rozwi¹zañ
+47. U¿ytkownik wy³¹czy³ podpowiedzi
+48. Cofniêto ruch z liczby 0 na liczbe 8 na pozycji 0, 1
+49. Cofniêto ruch z liczby 8 na liczbe 0 na pozycji 0, 1
+50. Cofniêto ruch z liczby 0 na liczbe 0 na pozycji 1, 0
+51. Zamkniêto aplikacjê
