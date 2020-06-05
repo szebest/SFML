@@ -142,7 +142,6 @@ void generateSudoku(struct tileInfo tab[sudokuSize][sudokuSize], bool* redo)
 //Funkcja podobna do powy¿szej, lecz jest przerobiona, aby mog³a dzia³aæ jako osobny w¹tek
 void solveSudoku(struct threadInfo* tInfo)
 {
-	tInfo->inside = true;
 	if (!tInfo->decremented)
 	{
 		tInfo->more--;
@@ -178,7 +177,7 @@ void solveSudoku(struct threadInfo* tInfo)
 
 	//Dopóki zmienna nie zostanie zinkrementowana poprzez kolejne wciœniêcie klawiszu 'S', czekamy w nieskoñczonej pêtli
 	while (tInfo->more == 0)
-		sfSleep(sfMilliseconds(20));
+		Sleep(20);
 }
 
 bool hasWon(struct tileInfo tab[sudokuSize][sudokuSize])

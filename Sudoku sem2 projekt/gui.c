@@ -92,7 +92,7 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 	thread = sfThread_create(solveSudoku, &tInfo);
 	sfSprite_setTexture(grid, tGrid, NULL);
 	win = sfRenderWindow_create(mode, "Sudoku", sfClose, NULL);
-	sfRenderWindow_setVerticalSyncEnabled(win, true);
+	sfRenderWindow_setFramerateLimit(win, 60);
 	sfWindow_setKeyRepeatEnabled(win, false);
 
 	action_dodajNaKoniecListyJednokierunkowej(&action_head, "Otwarto aplikacjê");
@@ -146,6 +146,7 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 						tInfo.more = 1;
 						tInfo.amount++;
 						tInfo.decremented = false;
+						tInfo.inside = true;
 
 						char buffer[100];
 

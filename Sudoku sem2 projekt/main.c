@@ -1,5 +1,6 @@
 ﻿#pragma warning(disable:4996)
 #include <time.h>
+#include <stdio.h>
 
 #include "struktury.h"
 #include "sudoku.h"
@@ -9,6 +10,10 @@
 
 int main()
 {
+	int liczba;
+	scanf("%d", &liczba);
+	#define elementsToRemove liczba
+
 	//Inicjujemy losowe liczby
 	srand(time(NULL));
 
