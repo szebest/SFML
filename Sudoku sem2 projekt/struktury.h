@@ -1,9 +1,9 @@
 #ifndef STRUKTURY_H
 #define STRUKTURY_H
 
-#include <stdbool.h>
-
 #define sudokuSize 9
+
+typedef enum { false, true } bool;
 
 /** @file */
 

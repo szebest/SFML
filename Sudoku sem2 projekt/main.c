@@ -10,10 +10,6 @@
 
 int main()
 {
-	int liczba;
-	scanf("%d", &liczba);
-	#define elementsToRemove liczba
-
 	//Inicjujemy losowe liczby
 	srand(time(NULL));
 

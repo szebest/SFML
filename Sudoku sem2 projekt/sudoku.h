@@ -1,7 +1,6 @@
 #ifndef SUDOKU_H
 #define SUDOKU_H
 
-#include <stdbool.h>
 #include <windows.h>
 #include "struktury.h"
 

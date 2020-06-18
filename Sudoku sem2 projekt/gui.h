@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <SFML/Graphics.h>
-#include <stdbool.h>
 #include "struktury.h"
 #include "sudoku.h"
 

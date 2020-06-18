@@ -404,14 +404,15 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 		}
 
 		//Wyœwietlamy liczby przechowane w tablicy na ekran w odpowiednie miejsca
-		char c[4];
+		char c[2];
 		for (int i = 0; i < 9; i++)
 		{
 			for (int j = 0; j < 9; j++)
 			{
 				if (tab[i][j].value != 0)
 				{
-					sprintf_s(c, sizeof(int), "%d", tab[i][j].value);
+					c[0] = '0' + tab[i][j].value;
+					c[1] = '\0';
 					displayString(win, tab[i][j].canBeModified ? sfBlack : sfBlue, font, 30 + j * 48.5, 58 + i * 47.5, 32, c, true);
 				}
 			}
@@ -419,7 +420,8 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 
 		for (int i = 0; i < 9; i++)
 		{
-			sprintf_s(c, sizeof(int), "%d", i + 1);
+			c[0] = '0' + i + 1;
+			c[1] = '\0';
 			displayString(win, sfBlack, font, 30 + i * 48.5, 488, 32, c, true);
 		}
 
