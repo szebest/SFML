@@ -1,3 +1,4 @@
+#pragma warning(disable:4996)
 #include "sudoku.h"
 
 void fillSudoku(struct tileInfo tab[sudokuSize][sudokuSize], int number)
@@ -177,7 +178,7 @@ void solveSudoku(struct threadInfo* tInfo)
 
 	//Dopóki zmienna nie zostanie zinkrementowana poprzez kolejne wciœniêcie klawiszu 'S', czekamy w nieskoñczonej pêtli
 	while (tInfo->more == 0)
-		Sleep(20);
+		Sleep(5);
 }
 
 bool hasWon(struct tileInfo tab[sudokuSize][sudokuSize])

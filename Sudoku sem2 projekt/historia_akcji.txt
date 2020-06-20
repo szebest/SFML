@@ -1,3 +1,5 @@
 1. Otwarto aplikacjê
-2. Wczytano
-3. Zamkniêto aplikacjê
+2. Wygenerowano now¹ tablicê
+3. Pokazano mo¿liwe rozwiazanie nr 1
+4. U¿ytkownik wy³¹czy³ podpowiedzi
+5. Zamkniêto aplikacjê

@@ -163,7 +163,7 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 						tInfo.amount++;
 						tInfo.decremented = false;
 
-						sfSleep(sfMilliseconds(25));
+						sfSleep(sfMilliseconds(15));
 
 						//Je¿eli kolejne rozwi¹zanie nie istnieje, resetuj i zamknij w¹tek
 						if (!hasWon(tab))
@@ -225,9 +225,9 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 		}
 
 		//Zmiana wyœwietlanego tekstu
-		if (!tInfo.inside && check)
+		if (check)
 		{
-			if (hasWon(tab))
+			if (hasWon(tab) && !tInfo.inside)
 			{
 				changeDisplayedText(&wyswietlane, "Congratulations! You have won!", &positions);
 				action_dodajNaKoniecListyJednokierunkowej(&action_head, "U¿ytkownik wygral");
