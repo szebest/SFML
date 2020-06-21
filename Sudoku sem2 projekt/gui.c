@@ -90,6 +90,11 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 	grid = sfSprite_create();
 	clock = sfClock_create();
 	thread = sfThread_create(solveSudoku, &tInfo);
+
+	//Je¿eli coœ siê nie za³aduje
+	if (!font || !tGrid || !grid || !clock || !shader)
+		return -1;
+
 	sfSprite_setTexture(grid, tGrid, NULL);
 	win = sfRenderWindow_create(mode, "Sudoku", sfClose, NULL);
 	sfRenderWindow_setFramerateLimit(win, 60);
