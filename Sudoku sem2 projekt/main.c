@@ -1,6 +1,5 @@
 ﻿#pragma warning(disable:4996)
 #include <time.h>
-
 #include "struktury.h"
 #include "sudoku.h"
 #include "io.h"

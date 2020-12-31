@@ -122,6 +122,8 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 			{
 				hasClicked = true;
 
+				printf("XD\n");
+
 				if (event.mouseButton.button == sfMouseRight)
 					rightMouse = true;
 				if (event.mouseButton.button == sfMouseLeft)
@@ -238,7 +240,7 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 				action_dodajNaKoniecListyJednokierunkowej(&action_head, "U¿ytkownik wygral");
 			}
 			else
-				changeDisplayedText(&wyswietlane, "Sudoku", &positions);
+				changeDisplayedText(&wyswietlane, "Jebac Bodzente", &positions);
 
 			check = false;
 		}
@@ -347,11 +349,14 @@ void handleWindow(struct tileInfo tab[sudokuSize][sudokuSize])
 						}
 						if (rightMouse && tab[j][i].canBeModified)
 						{
-							char buffer[100];
+							if (tab[j][i].value != 0)
+							{
+								char buffer[100];
 
-							sprintf(buffer, "U¿ytkownik usun¹³ liczbê %d z pozycji %d, %d", tab[j][i].value, i, j);
+								sprintf(buffer, "U¿ytkownik usun¹³ liczbê %d z pozycji %d, %d", tab[j][i].value, i, j);
 
-							action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
+								action_dodajNaKoniecListyJednokierunkowej(&action_head, buffer);
+							}
 
 							tile_dodajDoListyJednokierunkowej(&tile_head, tab[j][i].value, i, j);
 							tab[j][i].value = 0;

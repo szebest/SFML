@@ -1,2 +1,25 @@
 1. Otwarto aplikacjê
-2. Zamkniêto aplikacjê
+2. Pokazano mo¿liwe rozwiazanie nr 1
+3. Pokazano mo¿liwe rozwi¹zanie nr 2
+4. Pokazano mo¿liwe rozwi¹zanie nr 3
+5. Pokazano mo¿liwe rozwi¹zanie nr 4
+6. Pokazano mo¿liwe rozwi¹zanie nr 5
+7. Pokazano mo¿liwe rozwi¹zanie nr 6
+8. Pokazano mo¿liwe rozwi¹zanie nr 7
+9. Pokazano mo¿liwe rozwi¹zanie nr 8
+10. Pokazano mo¿liwe rozwi¹zanie nr 9
+11. Pokazano mo¿liwe rozwi¹zanie nr 10
+12. Pokazano mo¿liwe rozwi¹zanie nr 11
+13. Pokazano mo¿liwe rozwi¹zanie nr 12
+14. Pokazano mo¿liwe rozwi¹zanie nr 13
+15. Pokazano mo¿liwe rozwi¹zanie nr 14
+16. Pokazano mo¿liwe rozwi¹zanie nr 15
+17. Pokazano mo¿liwe rozwi¹zanie nr 16
+18. Pokazano mo¿liwe rozwi¹zanie nr 17
+19. Pokazano mo¿liwe rozwi¹zanie nr 18
+20. Pokazano mo¿liwe rozwi¹zanie nr 19
+21. Pokazano mo¿liwe rozwi¹zanie nr 20
+22. Pokazano mo¿liwe rozwi¹zanie nr 21
+23. Pokazano mo¿liwe rozwi¹zanie nr 22
+24. Pokazano mo¿liwe rozwi¹zanie nr 23
+25. Zamkniêto aplikacjê
