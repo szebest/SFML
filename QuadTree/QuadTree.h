@@ -14,8 +14,12 @@ class QuadTree
 	QuadTree* southWest=nullptr;
 	QuadTree* southEast=nullptr;
 	std::vector<Point> points;
+
+	void divide();
 	public:
 	QuadTree(Rectangle, int);
+
+	~QuadTree();
 
 	void insert(Point);
 };

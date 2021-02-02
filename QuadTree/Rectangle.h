@@ -13,6 +13,12 @@ class Rectangle
 	Rectangle(float, float, float, float);
 
 	bool contains(Point);
+
+	Point getPoint() { return p; }
+
+	float getWidth() { return width; }
+
+	float getHeight() { return height; }
 };
 
 #endif
