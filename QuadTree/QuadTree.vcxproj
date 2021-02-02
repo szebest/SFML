@@ -131,10 +131,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Rectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Point.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Rectangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
