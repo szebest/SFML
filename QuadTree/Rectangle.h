@@ -11,6 +11,8 @@ class Rectangle
 	Rectangle(Point, float, float);
 
 	Rectangle(float, float, float, float);
+
+	bool contains(Point);
 };
 
 #endif

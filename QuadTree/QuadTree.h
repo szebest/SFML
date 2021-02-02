@@ -16,6 +16,7 @@ class QuadTree
 	std::vector<Point> points;
 	public:
 	QuadTree(Rectangle, int);
+
 	void insert(Point);
 };
 
