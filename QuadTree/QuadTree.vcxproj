@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{A124BE30-265D-4DFB-86D8-3520F41603D1}</ProjectGuid>
-    <RootNamespace>Minecraft2D</RootNamespace>
+    <ProjectGuid>{33ee182b-e40f-4887-b592-8bfb0b8bfd1e}</ProjectGuid>
+    <RootNamespace>QuadTree</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
