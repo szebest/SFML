@@ -3,6 +3,9 @@
 #include <vector>
 #include <cmath>
 
+#include "QuadTree.h"
+#include "Functions.h"
+
 #define WIDTH 1600
 #define HEIGHT 900
 
@@ -12,11 +15,17 @@ using namespace std;
 
 int main()
 {
+	srand(time(NULL));
     float r_time=0;
     sf::Clock zegar;
     sf::Clock zegar2;
 
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SFML");
+
+	QuadTree q(Rectangle(0, 0, WIDTH, HEIGHT), 4);
+
+	for (int i = 0; i < 100; i++)
+		q.insert(Point(random(0, WIDTH), random(0, HEIGHT)));
 
     while (window.isOpen()) {
         sf::Event event;
