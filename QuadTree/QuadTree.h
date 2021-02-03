@@ -2,6 +2,7 @@
 #define QUADTREE
 
 #include <vector>
+#include <SFML/Graphics.hpp>
 #include "Rectangle.h"
 #include "Point.h"
 
@@ -24,6 +25,8 @@ class QuadTree
 	void insert(Point);
 
 	std::vector<Point> getPointsInsideRange(Rectangle);
+
+	void drawRectangles(sf::RenderWindow &window);
 
 	Rectangle getRect() { return rect; }
 };

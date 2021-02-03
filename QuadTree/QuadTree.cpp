@@ -71,3 +71,23 @@ std::vector<Point> QuadTree::getPointsInsideRange(Rectangle _rect)
 
 	return p;
 }
+
+void QuadTree::drawRectangles(sf::RenderWindow& window)
+{
+	sf::RectangleShape r;
+	r.setPosition(sf::Vector2f(rect.getPoint().getX(), rect.getPoint().getY()));
+	r.setSize(sf::Vector2f(rect.getWidth(), rect.getHeight()));
+	r.setFillColor(sf::Color::Transparent);
+	r.setOutlineColor(sf::Color::Blue);
+	r.setOutlineThickness(1);
+
+	window.draw(r);
+
+	if (northEast == nullptr)
+		return;
+
+	northWest->drawRectangles(window);
+	northEast->drawRectangles(window);
+	southWest->drawRectangles(window);
+	southEast->drawRectangles(window);
+}

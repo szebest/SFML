@@ -22,7 +22,7 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SFML");
 
-	QuadTree q(Rectangle(0, 0, WIDTH, HEIGHT), 4);
+	QuadTree q(Rectangle(0, 0, WIDTH, HEIGHT), 1);
 
 	for (int i = 0; i < 1000; i++)
 		q.insert(Point(random(0, WIDTH), random(0, HEIGHT)));
@@ -46,6 +46,8 @@ int main()
 				sf::Vertex point(sf::Vector2f(points[i].getX(), points[i].getY()), sf::Color::White);
 				window.draw(&point, 1, sf::Points);
 			}
+
+			q.drawRectangles(window);
 
             window.display();
 
