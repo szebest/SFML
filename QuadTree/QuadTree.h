@@ -22,6 +22,10 @@ class QuadTree
 	~QuadTree();
 
 	void insert(Point);
+
+	std::vector<Point> getPointsInsideRange(Rectangle);
+
+	Rectangle getRect() { return rect; }
 };
 
 #endif

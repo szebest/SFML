@@ -14,6 +14,8 @@ class Rectangle
 
 	bool contains(Point);
 
+	bool overlap(Rectangle);
+
 	Point getPoint() { return p; }
 
 	float getWidth() { return width; }

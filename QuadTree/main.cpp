@@ -24,7 +24,7 @@ int main()
 
 	QuadTree q(Rectangle(0, 0, WIDTH, HEIGHT), 4);
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 1000; i++)
 		q.insert(Point(random(0, WIDTH), random(0, HEIGHT)));
 
     while (window.isOpen()) {
@@ -37,7 +37,15 @@ int main()
             zegar2.restart();
             zegar.restart();
 
-            window.clear();
+			std::vector<Point> points = q.getPointsInsideRange(Rectangle(0, 0, WIDTH, HEIGHT));
+
+            window.clear(sf::Color::Black);
+
+			for (int i = 0; i < points.size(); i++)
+			{
+				sf::Vertex point(sf::Vector2f(points[i].getX(), points[i].getY()), sf::Color::White);
+				window.draw(&point, 1, sf::Points);
+			}
 
             window.display();
 

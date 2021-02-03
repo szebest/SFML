@@ -17,3 +17,16 @@ bool Rectangle::contains(Point point)
 			point.getY() >= p.getY() &&
 			point.getY() < p.getY() + height);
 }
+
+bool Rectangle::overlap(Rectangle other)
+{
+	if (p.getX() >= other.getPoint().getX() + other.getWidth() ||
+		other.getPoint().getX() >= p.getX() + width)
+		return false;
+
+	if (p.getY() >= other.getPoint().getY() + other.getHeight() ||
+		other.getPoint().getY() >= p.getY() + height)
+		return false;
+
+	return true;
+}
