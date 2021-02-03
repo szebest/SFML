@@ -25,20 +25,24 @@ int main()
 
 	QuadTree q(Rectangle(0, 0, WIDTH, HEIGHT), 4);
 
-	for (int i = 0; i < 10000; i++)
-		q.insert(Point(random(0, WIDTH), random(0, HEIGHT)));
-
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) window.close();
+			else if (event.type == sf::Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					q.insert(Point((sf::Vector2f)sf::Mouse::getPosition(window)));
+				}
+			}
         }
 
         if (zegar2.getElapsedTime().asMicroseconds() >= FRAMETIME - r_time) {
             zegar2.restart();
             zegar.restart();
 
-			std::vector<Point> points = q.getPointsInsideRange(Rectangle(1000, 0, WIDTH, HEIGHT));
+			std::vector<Point> points = q.getPointsInsideRange(Rectangle(0, 0, WIDTH, HEIGHT));
 
             window.clear(sf::Color::Black);
 
@@ -48,13 +52,11 @@ int main()
 				window.draw(&point, 1, sf::Points);
 			}
 
-			//q.drawRectangles(window);
+			q.drawRectangles(window);
 
             window.display();
 
             r_time=zegar.getElapsedTime().asMicroseconds();
-
-			std::cout << r_time << std::endl;
         }
     }
 
