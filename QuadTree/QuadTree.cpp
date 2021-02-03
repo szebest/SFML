@@ -59,10 +59,10 @@ std::vector<Point> QuadTree::getPointsInsideRange(Rectangle _rect)
 	if (northEast == nullptr)
 		return p;
 
-	std::vector<Point> nw = northWest->getPointsInsideRange(northWest->getRect());
-	std::vector<Point> ne = northEast->getPointsInsideRange(northEast->getRect());
-	std::vector<Point> sw = southWest->getPointsInsideRange(southWest->getRect());
-	std::vector<Point> se = southEast->getPointsInsideRange(southEast->getRect());
+	std::vector<Point> nw = northWest->getPointsInsideRange(_rect);
+	std::vector<Point> ne = northEast->getPointsInsideRange(_rect);
+	std::vector<Point> sw = southWest->getPointsInsideRange(_rect);
+	std::vector<Point> se = southEast->getPointsInsideRange(_rect);
 
 	p.insert(p.end(), nw.begin(), nw.end());
 	p.insert(p.end(), ne.begin(), ne.end());
