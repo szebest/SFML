@@ -43,6 +43,8 @@ void rotate(float& angle, float rotation) {
 
 void drawTree(float length, float mini, float angle, float rotation, sf::Vector2f startingPosition, sf::RenderWindow& window) {
 	//exit condtion
+	if (mini < 0)
+		mini *= -1;
 	if (length < mini) 
 		return;
 	else {
@@ -51,11 +53,11 @@ void drawTree(float length, float mini, float angle, float rotation, sf::Vector2
 		//rotate
 		rotate(angle, rotation);
 		//recursion
-		drawTree(length / 2, mini, angle, rotation, startingPosition, window);
+		drawTree(length / 4 * 3, mini, angle, rotation, startingPosition, window);
 		//rotate 2 times in the other direction
 		rotate(angle, -2*rotation);
 		//recursion
-		drawTree(length / 2, mini, angle, rotation, startingPosition, window);
+		drawTree(length / 4 * 3, mini, angle, rotation, startingPosition, window);
 		//rotate back
 		rotate(angle, rotation);
 	}
@@ -66,6 +68,9 @@ int main()
     float r_time=0;
     sf::Clock zegar;
     sf::Clock zegar2;
+
+
+	float rotation = 0;
 
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SFML");
 
@@ -79,13 +84,17 @@ int main()
             zegar2.restart();
             zegar.restart();
 
+			rotation += 1;
+
             window.clear();
 
-			drawTree(300, 5, -90, 25, {WIDTH / 2, HEIGHT * 0.8},  window);
+			drawTree(250, 4, -90, rotation, {WIDTH / 2, HEIGHT * 0.95},  window);
 
             window.display();
 
             r_time=zegar.getElapsedTime().asMicroseconds();
+
+			std::cout << r_time << std::endl;
         }
     }
 
