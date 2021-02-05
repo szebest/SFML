@@ -25,9 +25,11 @@ int main()
 
 	QuadTree q(Rectangle(0, 0, WIDTH, HEIGHT), 4);
 
-    while (window.isOpen()) {
+    while (window.isOpen()) 
+	{
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window.pollEvent(event)) 
+		{
             if (event.type == sf::Event::Closed) window.close();
 			else if (event.type == sf::Event::MouseButtonPressed)
 			{
@@ -38,7 +40,8 @@ int main()
 			}
         }
 
-        if (zegar2.getElapsedTime().asMicroseconds() >= FRAMETIME - r_time) {
+        if (zegar2.getElapsedTime().asMicroseconds() >= FRAMETIME - r_time) 
+		{
             zegar2.restart();
             zegar.restart();
 
