@@ -5,6 +5,10 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "Structures.cpp"
+
+#define M_PI 3.14159265358979323846
+
 #define WIDTH 1600
 #define HEIGHT 900
 
