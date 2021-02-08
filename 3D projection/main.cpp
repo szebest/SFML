@@ -18,12 +18,16 @@ using namespace std;
 
 int main()
 {
+	float fTheta = 0.f;
+
+	vec3d camera = { 0.f,0.f,0.f };
+
 	//Variables for projection matrix
-	float fNear = 1.0f;
+	float fNear = 2.f;
 	float fFar = 1000.f;
 	float fov = 90.f;
 	float aRatio = (float)WIDTH / (float)HEIGHT;
-	float fFov = 1 / (float)tan(fov * 0.5f / 180.f * M_PI);
+	float fFov = 1 / (float)tanf(fov * 0.5f / 180.f * M_PI);
 
 	mat4x4 projectionMatrix;
 
@@ -37,6 +41,8 @@ int main()
 	//Objects to draw
 	mesh mCube;
 	mCube.createCube();
+
+	mat4x4 matRotZ, matRotX;
 
     float r_time=0;
     sf::Clock zegar;
@@ -58,50 +64,86 @@ int main()
             zegar2.restart();
             zegar.restart();
 
+			fTheta += 0.01f;
+
+			// Rotation Z
+			matRotZ.mat[0][0] = cosf(fTheta);
+			matRotZ.mat[0][1] = sinf(fTheta);
+			matRotZ.mat[1][0] = -sinf(fTheta);
+			matRotZ.mat[1][1] = cosf(fTheta);
+			matRotZ.mat[2][2] = 1;
+			matRotZ.mat[3][3] = 1;
+
+			// Rotation X
+			matRotX.mat[0][0] = 1;
+			matRotX.mat[1][1] = cosf(fTheta * 0.5f);
+			matRotX.mat[1][2] = sinf(fTheta * 0.5f);
+			matRotX.mat[2][1] = -sinf(fTheta * 0.5f);
+			matRotX.mat[2][2] = cosf(fTheta * 0.5f);
+			matRotX.mat[3][3] = 1;
+
             window.clear();
 
 			for (auto t : mCube.mVector)
 			{
-				triangle tTranslated, tProjected;
+				triangle tTranslated, tProjected, tRotatedZ, tRotatedZX;
+
+				// Rotate in Z-Axis
+				MultiplyMatrixVector(t.p[0], tRotatedZ.p[0], matRotZ);
+				MultiplyMatrixVector(t.p[1], tRotatedZ.p[1], matRotZ);
+				MultiplyMatrixVector(t.p[2], tRotatedZ.p[2], matRotZ);
+
+				// Rotate in X-Axis
+				MultiplyMatrixVector(tRotatedZ.p[0], tRotatedZX.p[0], matRotX);
+				MultiplyMatrixVector(tRotatedZ.p[1], tRotatedZX.p[1], matRotX);
+				MultiplyMatrixVector(tRotatedZ.p[2], tRotatedZX.p[2], matRotX);
 
 				//Offset the cube
-				tTranslated = t;
-				tTranslated.p[0].z = t.p[0].z + 3.0f;
-				tTranslated.p[1].z = t.p[1].z + 3.0f;
-				tTranslated.p[2].z = t.p[2].z + 3.0f;
+				tTranslated = tRotatedZX;
+				tTranslated.p[0].z = tRotatedZX.p[0].z + 3.0f;
+				tTranslated.p[1].z = tRotatedZX.p[1].z + 3.0f;
+				tTranslated.p[2].z = tRotatedZX.p[2].z + 3.0f;
 
 				//Project
 				MultiplyMatrixVector(tTranslated.p[0], tProjected.p[0], projectionMatrix);
 				MultiplyMatrixVector(tTranslated.p[1], tProjected.p[1], projectionMatrix);
 				MultiplyMatrixVector(tTranslated.p[2], tProjected.p[2], projectionMatrix);
 
-				//std::cout << tProjected.p[0].x;
+				vec3d normal = normalize(crossProduct(tTranslated));
 
-				//Scale
-				tProjected.p[0].x = 1.0f; tProjected.p[0].y += 1.0f;
-				tProjected.p[1].x += 1.0f; tProjected.p[1].y += 1.0f;
-				tProjected.p[2].x += 1.0f; tProjected.p[2].y += 1.0f;
-				tProjected.p[0].x *= 0.5f * (float)WIDTH;
-				tProjected.p[0].y *= 0.5f * (float)HEIGHT;
-				tProjected.p[1].x *= 0.5f * (float)WIDTH;
-				tProjected.p[1].y *= 0.5f * (float)HEIGHT;
-				tProjected.p[2].x *= 0.5f * (float)WIDTH;
-				tProjected.p[2].y *= 0.5f * (float)HEIGHT;
+				vec3d offsetTranslated = tTranslated.p[0];
+				offsetTranslated.x -= camera.x;
+				offsetTranslated.y -= camera.y;
+				offsetTranslated.z -= camera.z;
 
-				// create an array of 3 vertices that define a triangle primitive
-				sf::VertexArray triangle(sf::Triangles, 3);
+				if (dotProduct(normal, offsetTranslated) < 0.f)
+				{
+					//Scale
+					tProjected.p[0].x += 1.0f; tProjected.p[0].y += 1.0f;
+					tProjected.p[1].x += 1.0f; tProjected.p[1].y += 1.0f;
+					tProjected.p[2].x += 1.0f; tProjected.p[2].y += 1.0f;
+					tProjected.p[0].x *= 0.5f * (float)WIDTH;
+					tProjected.p[0].y *= 0.5f * (float)HEIGHT;
+					tProjected.p[1].x *= 0.5f * (float)WIDTH;
+					tProjected.p[1].y *= 0.5f * (float)HEIGHT;
+					tProjected.p[2].x *= 0.5f * (float)WIDTH;
+					tProjected.p[2].y *= 0.5f * (float)HEIGHT;
 
-				// define the position of the triangle's points
-				triangle[0].position = sf::Vector2f(tProjected.p[0].x, tProjected.p[0].y);
-				triangle[1].position = sf::Vector2f(tProjected.p[1].x, tProjected.p[1].y);
-				triangle[2].position = sf::Vector2f(tProjected.p[2].x, tProjected.p[2].y);
+					// create an array of 3 vertices that define a triangle primitive
+					sf::VertexArray triangle(sf::Triangles, 3);
 
-				// define the color of the triangle's points
-				triangle[0].color = sf::Color::White;
-				triangle[1].color = sf::Color::White;
-				triangle[2].color = sf::Color::White;
+					// define the position of the triangle's points
+					triangle[0].position = sf::Vector2f(tProjected.p[0].x, tProjected.p[0].y);
+					triangle[1].position = sf::Vector2f(tProjected.p[1].x, tProjected.p[1].y);
+					triangle[2].position = sf::Vector2f(tProjected.p[2].x, tProjected.p[2].y);
 
-				window.draw(triangle);
+					// define the color of the triangle's points
+					triangle[0].color = sf::Color::Transparent;
+					triangle[1].color = sf::Color::White;
+					triangle[2].color = sf::Color::White;
+
+					window.draw(triangle);
+				}
 			}
 
             window.display();
