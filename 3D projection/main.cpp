@@ -118,6 +118,16 @@ int main()
 
 				if (dotProduct(normal, offsetTranslated) < 0.f)
 				{
+					//Light
+					vec3d lightSource = { 0.f,0.f,-1.f };
+					lightSource = normalize(lightSource);
+
+					float dProduct = dotProduct(normal, lightSource);
+
+					float result = mapBetween(0, 255, abs(dProduct));
+
+					sf::Color c = { (sf::Uint8)result, (sf::Uint8)result, 0 };
+
 					//Scale
 					tProjected.p[0].x += 1.0f; tProjected.p[0].y += 1.0f;
 					tProjected.p[1].x += 1.0f; tProjected.p[1].y += 1.0f;
@@ -138,9 +148,9 @@ int main()
 					triangle[2].position = sf::Vector2f(tProjected.p[2].x, tProjected.p[2].y);
 
 					// define the color of the triangle's points
-					triangle[0].color = sf::Color::Transparent;
-					triangle[1].color = sf::Color::White;
-					triangle[2].color = sf::Color::White;
+					triangle[0].color = c;
+					triangle[1].color = c;
+					triangle[2].color = c;
 
 					window.draw(triangle);
 				}

@@ -46,3 +46,13 @@ float dotProduct(vec3d v, vec3d o)
 {
 	return v.x * o.x + v.y * o.y + v.z * o.z;
 }
+
+float mapBetween(float mini, float maxi, float val)
+{
+	if (val > 1)
+		val = 1;
+	if (val < 0)
+		val = 0;
+
+	return mini + (maxi - mini) * val;
+}

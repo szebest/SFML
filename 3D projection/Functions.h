@@ -11,4 +11,6 @@ vec3d normalize(vec3d);
 
 float dotProduct(vec3d, vec3d);
 
+float mapBetween(float mini, float maxi, float val);
+
 #endif
