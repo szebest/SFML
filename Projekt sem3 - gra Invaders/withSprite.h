@@ -3,13 +3,12 @@
 
 #include "includes.h"
 #include "ObiektGraficzny.h"
-#include "Animation.h"
 
 //TODO pozbyæ siê wirtualnego dziedziczenia
 class withSprite : public ObiektGraficzny
 {
 protected:
-	Animation sprite;
+	sf::Sprite sprite;
 public:
 	withSprite(const int& x, const int& y) : ObiektGraficzny(x, y)
 	{

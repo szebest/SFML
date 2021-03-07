@@ -41,8 +41,6 @@ void Window::draw()
 
 void Window::update()
 {
-	manager->cleanUpObjects();
-
 	manager->checkCollisions();
 
 	manager->checkEnemies();

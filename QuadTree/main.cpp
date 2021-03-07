@@ -16,6 +16,24 @@ using namespace std;
 
 int main()
 {
+	int wynik=0;
+	int a = 100000;
+	int b = 50000;
+	try
+	{
+		int c = 0;
+		wynik = a * b;
+
+		if (b > 0 && a > std::numeric_limits< int >::max() / b)
+			throw std::overflow_error("adding a and b would cause overflow");
+	}
+	catch (std::overflow_error e)
+	{
+		std::cout << e.what() << '\n';
+	}
+
+	std::cout << wynik;
+
 	srand(time(NULL));
     float r_time=0;
     sf::Clock zegar;

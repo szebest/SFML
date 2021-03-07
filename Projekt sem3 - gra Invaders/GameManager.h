@@ -20,20 +20,6 @@ class GameManager
 
 	void createSelectMenu();
 
-	void createParticles(const int& n, const int& x, const int& y, sf::Color kolor);
-
-	bool newHighscore(const int& score, const std::string& filePath);
-
-	void updateHighscores(const std::string& filePath, std::string name, int score);
-
-	void selectNextScreen(const int& score, std::string* name);
-
-	void gameOverScreen();
-
-	void inputNewHighscoreScreen(std::string* name);
-
-	void highscoreScreen(const std::string& filePath);
-
 	void addSound(const sf::SoundBuffer& buffer);
 
 	void saveGame(const std::string& filePath);
@@ -66,9 +52,9 @@ public:
 
 	void checkEnemies();
 
-	void cleanUpObjects();
-
 	void checkSounds();
+
+	void gameOverScreen();
 
 	friend class Window;
 };

@@ -6,8 +6,19 @@ enum class GameState
 	Menu,
 	Playing,
 	Pause,
-	Highscore,
 	GameOver
+};
+
+enum class ButtonType
+{
+	StartGame,
+	ExitGame,
+	ResumeGame,
+	Menu,
+	SelectMenu,
+	LoadGame,
+	SaveGame,
+	None
 };
 
 #endif

@@ -132,7 +132,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Barrier.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -140,19 +139,15 @@
     <ClCompile Include="Funkcje.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Holder.cpp" />
-    <ClCompile Include="InputForm.cpp" />
     <ClCompile Include="Lista.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObiektGraficzny.cpp" />
-    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="withSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="Barrier.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Defines.h" />
@@ -163,11 +158,9 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Holder.h" />
     <ClInclude Include="includes.h" />
-    <ClInclude Include="InputForm.h" />
     <ClInclude Include="Lista.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="ObiektGraficzny.h" />
-    <ClInclude Include="Particle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Struktury.h" />
     <ClInclude Include="Text.h" />

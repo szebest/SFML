@@ -2,10 +2,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Button.h"
-#include "Particle.h"
 #include "Holder.h"
-#include "InputForm.h"
-#include "Barrier.h"
 #include "Defines.h"
 #include "Funkcje.h"
 #include <sstream>
@@ -44,11 +41,6 @@ void GameManager::createGame(int* score, int* hp, const int& x, const int& y)
 		}
 	}
 
-	for (int i = 0; i < 4; i++)
-		for (int j = 0; j < 3; j++)
-			for (int k = 0; k < 3; k++)
-				drawable.add(new Barrier(100 + i * ((WIDTH - 500) / 4 + 100) + j * 70, HEIGHT * 3 / 5 + k * 70, holder::get().textures.get("bariera")));
-
 	drawable.add(new Player(&drawable, holder::get().textures.get("player"), x, y, 5));
 	drawable.add(new Text("Punkty: ", holder::get().fonts.get("arial"), 32, sf::Color::Red, 80, 32, score, true));
 	drawable.add(new Text("Hp: ", holder::get().fonts.get("arial"), 32, sf::Color::Red, WIDTH - 160, 32, hp, true));
@@ -57,153 +49,32 @@ void GameManager::createGame(int* score, int* hp, const int& x, const int& y)
 void GameManager::createMenu()
 {
 	drawable.usun();
-	drawable.add(new Button("Start", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 200, 200, 60, 6, NULL, sf::Color::White));
-	drawable.add(new Button("Highscores", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 300, 200, 60, 5, NULL, sf::Color::White));
-	drawable.add(new Button("Exit", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 400, 200, 60, 1, NULL, sf::Color::White));
+	drawable.add(new Button("Start", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 200, 200, 60, ButtonType::SelectMenu, NULL, sf::Color::White));
+	drawable.add(new Button("Exit", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 300, 200, 60, ButtonType::ExitGame, NULL, sf::Color::White));
 }
 
 void GameManager::createPause()
 {
 	drawable.usun();
-	drawable.add(new Button("Return", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 200, 200, 60, 2, NULL, sf::Color::White));
-	drawable.add(new Button("Menu", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 300, 200, 60, 3, NULL, sf::Color::White));
-	drawable.add(new Button("Save", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 400, 200, 60, 8, NULL, sf::Color::White));
-	drawable.add(new Button("Exit", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 500, 200, 60, 1, NULL, sf::Color::White));
+	drawable.add(new Button("Return", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 200, 200, 60, ButtonType::ResumeGame, NULL, sf::Color::White));
+	drawable.add(new Button("Menu", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 300, 200, 60, ButtonType::Menu, NULL, sf::Color::White));
+	drawable.add(new Button("Save", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 400, 200, 60, ButtonType::SaveGame, NULL, sf::Color::White));
+	drawable.add(new Button("Exit", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 500, 200, 60, ButtonType::ExitGame, NULL, sf::Color::White));
 }
 
 void GameManager::createSelectMenu()
 {
 	drawable.usun();
-	drawable.add(new Button("New Game", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 200, 200, 60, 0, NULL, sf::Color::White));
-	drawable.add(new Button("Load Game", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 300, 200, 60, 7, NULL, sf::Color::White));
-	drawable.add(new Button("Return", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 400, 200, 60, 3, NULL, sf::Color::White));
-}
-
-void GameManager::createParticles(const int& n, const int& x, const int& y, sf::Color kolor)
-{
-	for (int i = 0; i < n; i++)
-		drawable.add(new Particle(holder::get().textures.get("particle"), kolor, (rand() % 10 - 5) / 5.f, (rand() % 10 - 5) / 5.f, x + rand() % 50 - 25, y + rand() % 50 - 25, (16666 + rand() % 8000 - 4000) * 60));
-}
-
-bool GameManager::newHighscore(const int& score, const std::string& filePath)
-{
-	//implement score check here
-
-	std::ifstream plik(filePath);
-
-	std::string nazwa;
-	int wynik;
-
-	int highscoreAmount = 0;
-
-	while (plik >> nazwa >> wynik)
-	{
-		highscoreAmount++;
-		if (score > wynik)
-		{
-			plik.close();
-			return true;
-		}
-	}
-
-	if (highscoreAmount < 10)
-		return true;
-
-	plik.close();
-
-	return false;
-}
-
-void GameManager::updateHighscores(const std::string& filePath, std::string name, int score)
-{
-	for (int i = 0; i < name.size(); i++)
-		if (name[i] == ' ')
-			name[i] = '_';
-
-	std::ifstream plikOdczyt(filePath);
-
-	std::vector<std::pair<std::string, int>> dane;
-
-	std::string tmpString;
-	int tmpInt;
-
-	bool written = false;
-
-	while (plikOdczyt >> tmpString >> tmpInt && dane.size() < 10)
-	{
-		if (score > tmpInt)
-		{
-			dane.push_back(std::make_pair(name, score));
-			score = -1;
-			written = true;
-		}
-		if (dane.size() < 10)
-			dane.push_back(std::make_pair(tmpString, tmpInt));
-	}
-
-	if (!written)
-		dane.push_back(std::make_pair(name, score));
-
-	plikOdczyt.close();
-
-	std::ofstream plikZapis(filePath);
-
-	for (int i = 0; i < dane.size(); i++)
-		plikZapis << dane[i].first << " " << dane[i].second << std::endl;
-
-	plikOdczyt.close();
-}
-
-void GameManager::selectNextScreen(const int& score, std::string* name)
-{
-	if (newHighscore(score, SAVE_FILE_HIGHSCORE))
-		inputNewHighscoreScreen(name);
-	else
-		gameOverScreen();
+	drawable.add(new Button("New Game", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 200, 200, 60, ButtonType::StartGame, NULL, sf::Color::White));
+	drawable.add(new Button("Load Game", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 300, 200, 60, ButtonType::LoadGame, NULL, sf::Color::White));
+	drawable.add(new Button("Return", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 400, 200, 60, ButtonType::Menu, NULL, sf::Color::White));
 }
 
 void GameManager::gameOverScreen()
 {
 	drawable.usun();
-	drawable.add(new Button("Return to menu", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 600, 250, 60, 3, NULL, sf::Color::White));
+	drawable.add(new Button("Return to menu", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 600, 250, 60, ButtonType::Menu, NULL, sf::Color::White));
 	drawable.add(new Text("Game Over", holder::get().fonts.get("arial"), 64, sf::Color::Red, WIDTH / 2, 200, NULL, true));
-}
-
-void GameManager::inputNewHighscoreScreen(std::string* name)
-{
-	drawable.usun();
-	drawable.add(new Text("Game Over", holder::get().fonts.get("arial"), 64, sf::Color::Red, WIDTH / 2, 200, NULL, true));
-	drawable.add(new Text("New Highscore", holder::get().fonts.get("arial"), 64, sf::Color::White, WIDTH / 2, 300, NULL, true));
-	drawable.add(new Text("Enter your name", holder::get().fonts.get("arial"), 64, sf::Color::White, WIDTH / 2, 400, NULL, true));
-	drawable.add(new InputForm("", holder::get().fonts.get("arial"), 32, sf::Color::Red, WIDTH / 2, 500, 250, 60, name));
-	drawable.add(new Button("Submit", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 600, 250, 60, 4, NULL, sf::Color::White));
-}
-
-void GameManager::highscoreScreen(const std::string& filePath)
-{
-	drawable.usun();
-
-	std::ifstream plik(filePath);
-
-	std::string nazwa;
-	int wynik;
-
-	int i = 1;
-	int j = 1;
-
-	while (plik >> nazwa >> wynik)
-	{
-		drawable.add(new Text(to_string(i + (j - 1) * 5) + ". " + nazwa + " : " + to_string(wynik) + " points", holder::get().fonts.get("arial"), 32, sf::Color::Red, WIDTH * j / 3, 50 + 120 * i, NULL, true));
-		i++;
-
-		if (i == 6)
-		{
-			i = 1;
-			j++;
-		}
-	}
-
-	drawable.add(new Button("Return to menu", holder::get().fonts.get("arial"), 32, sf::Color::Black, WIDTH / 2, 900, 250, 60, 3, NULL, sf::Color::White));
 }
 
 void GameManager::checkCollisions()
@@ -227,7 +98,6 @@ void GameManager::checkCollisions()
 						{
 							enemyObject->timeToUpdatePosition *= 0.94;
 							score += enemyObject->points;
-							createParticles(50, bulletObject->x, bulletObject->y, sf::Color::Red);
 							drawable.erase(bulletObject);
 							drawable.erase(enemyObject);
 
@@ -238,14 +108,13 @@ void GameManager::checkCollisions()
 					}
 					else
 					{
-						Barrier* barrierObject = dynamic_cast<Barrier*>(tmp2->obj);
-						if (barrierObject)
+						Bullet* otherBulletObject = dynamic_cast<Bullet*>(tmp2->obj);
+						if (otherBulletObject)
 						{
-							if (bulletObject->getBounds().intersects(barrierObject->getBounds()))
+							if (bulletObject->getBounds().intersects(otherBulletObject->getBounds()) && bulletObject->shotByPlayer != otherBulletObject->shotByPlayer)
 							{
-								createParticles(50, bulletObject->x, bulletObject->y, sf::Color::Red);
 								drawable.erase(bulletObject);
-								drawable.erase(barrierObject);
+								drawable.erase(otherBulletObject);
 
 								addSound(holder::get().sounds.get("explosion"));
 
@@ -254,35 +123,17 @@ void GameManager::checkCollisions()
 						}
 						else
 						{
-							Bullet* otherBulletObject = dynamic_cast<Bullet*>(tmp2->obj);
-							if (otherBulletObject)
+							Player* playerObject = dynamic_cast<Player*>(tmp2->obj);
+							if (playerObject)
 							{
-								if (bulletObject->getBounds().intersects(otherBulletObject->getBounds()) && bulletObject->shotByPlayer != otherBulletObject->shotByPlayer)
+								if (bulletObject->getBounds().intersects(playerObject->getBounds()) && !bulletObject->shotByPlayer)
 								{
-									createParticles(50, bulletObject->x, bulletObject->y, sf::Color::Red);
 									drawable.erase(bulletObject);
-									drawable.erase(otherBulletObject);
+									hp--;
 
-									addSound(holder::get().sounds.get("explosion"));
+									addSound(holder::get().sounds.get("hurt"));
 
 									return;
-								}
-							}
-							else
-							{
-								Player* playerObject = dynamic_cast<Player*>(tmp2->obj);
-								if (playerObject)
-								{
-									if (bulletObject->getBounds().intersects(playerObject->getBounds()) && !bulletObject->shotByPlayer)
-									{
-										createParticles(50, bulletObject->x, bulletObject->y, sf::Color::Blue);
-										drawable.erase(bulletObject);
-										hp--;
-
-										addSound(holder::get().sounds.get("hurt"));
-
-										return;
-									}
 								}
 							}
 						}
@@ -294,9 +145,8 @@ void GameManager::checkCollisions()
 
 			if (bulletObject)
 			{
-				if (bulletObject->y >= HEIGHT - bulletObject->sprite.getSprite().getTexture()->getSize().y || bulletObject->y <= 0)
+				if (bulletObject->y >= HEIGHT - bulletObject->sprite.getTexture()->getSize().y || bulletObject->y <= 0)
 				{
-					createParticles(50, bulletObject->x, bulletObject->y, sf::Color::White);
 					drawable.erase(bulletObject);
 
 					return;
@@ -322,7 +172,7 @@ void GameManager::checkButtonInput()
 
 				switch (buttonObject->getButtonType())
 				{
-				case 0: //Starting the game
+				case ButtonType::StartGame: //Starting the game
 				{
 					score = 0;
 					hp = 3;
@@ -331,19 +181,19 @@ void GameManager::checkButtonInput()
 
 					state = GameState::Playing;
 				} break;
-				case 1: //Exiting the game
+				case ButtonType::ExitGame: //Exiting the game
 				{
 					drawable.usun();
 					ptrToWindow->window.close();
 				} break;
-				case 2:
+				case ButtonType::ResumeGame:
 				{
 					drawable.usun();
 					drawable = temporary;
 					temporary.wyzeruj();
 					state = GameState::Playing;
 				} break;
-				case 3:
+				case ButtonType::Menu:
 				{
 					drawable.usun();
 					createMenu();
@@ -351,38 +201,17 @@ void GameManager::checkButtonInput()
 					hp = 3;
 					state = GameState::Menu;
 				} break;
-				case 4:
-				{
-					if (name.size() > 0)
-					{
-						updateHighscores("dane\\highscores.txt", name, score);
-						drawable.usun();
-						createMenu();
-						score = 0;
-						hp = 3;
-						name = "";
-						state = GameState::Menu;
-					}
-					else
-						drawable.add(new Text("Type in at least one character", holder::get().fonts.get("arial"), 32, sf::Color::Red, WIDTH / 2, 700, NULL, true));
-				} break;
-				case 5:
-				{
-					drawable.usun();
-					highscoreScreen(SAVE_FILE_HIGHSCORE);
-					state = GameState::Highscore;
-				} break;
-				case 6:
+				case ButtonType::SelectMenu:
 				{
 					drawable.usun();
 					createSelectMenu();
 				} break;
-				case 7: //load
+				case ButtonType::LoadGame: //load
 				{
 					state = GameState::Playing;
 					loadGame(SAVE_FILE_GAME);
 				} break;
-				case 8: //save
+				case ButtonType::SaveGame: //save
 				{
 					saveGame(SAVE_FILE_GAME);
 				} break;
@@ -435,7 +264,7 @@ void GameManager::checkEnemies()
 			if (enemyObject->y >= HEIGHT / 2) //Game Lost
 			{
 				state = GameState::GameOver;
-				selectNextScreen(score, &name);
+				gameOverScreen();
 				break;
 			}
 		}
@@ -452,25 +281,8 @@ void GameManager::checkEnemies()
 
 	if (hp == 0 && state == GameState::Playing)
 	{
-		selectNextScreen(score, &name);
+		gameOverScreen();
 		state = GameState::GameOver;
-	}
-}
-
-void GameManager::cleanUpObjects()
-{
-	List* tmp = drawable.get();
-	while (tmp)
-	{
-		Particle* particleObject = dynamic_cast<Particle*>(tmp->obj);
-
-		List* nast = tmp->next;
-
-		if (particleObject)
-			if (particleObject->zegar.getElapsedTime().asMicroseconds() >= particleObject->lifeDuration)
-				drawable.erase(particleObject);
-
-		tmp = nast;
 	}
 }
 
@@ -563,12 +375,6 @@ void GameManager::loadGame(const std::string& filePath)
 			int x, y, diry;
 			plik >> x >> y >> diry;
 			drawable.add(new Bullet(holder::get().textures.get("bullet"), x, y, diry, diry < 0));
-		}
-		else if (type == "Barrier")
-		{
-			int x, y;
-			plik >> x >> y;
-			drawable.add(new Barrier(x, y, holder::get().textures.get("bariera")));
 		}
 	}
 }

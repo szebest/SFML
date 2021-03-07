@@ -28,7 +28,6 @@ void Enemy::update()
 			if (enemyObject)
 			{
 				enemyObject->move(dirx, 0);
-				enemyObject->sprite.setFrameTime(sf::microseconds(0)); //Force to update texture
 			}
 
 			tmp = tmp->next;
@@ -44,8 +43,6 @@ void Enemy::update()
 		deployBulletClock.restart();
 	}
 
-	sprite.update();
-	sprite.setFrameTime(sf::microseconds(timeToUpdatePosition));
 }
 
 Enemy::Enemy(Lista* wskNaObiekt, sf::Texture& texture, const int& _x, const int& _y, const float& updateTime, const float& velocity, const int& value) : Entity(velocity, wskNaObiekt, _x, _y), points(value)
@@ -77,12 +74,6 @@ Enemy::Enemy(Lista* wskNaObiekt, sf::Texture& texture, const int& _x, const int&
 	left = velocity > 0 ? false : true;
 	timeToUpdatePosition = updateTime;
 
-	texture.setRepeated(true);
 	sprite.setTexture(texture);
-	sprite.addFrame(sf::IntRect(0, 0, 96, 70));
-	sprite.addFrame(sf::IntRect(97, 0, 96, 70));
-	sprite.setFrameTime(sf::microseconds(timeToUpdatePosition));
-
-	sprite.getSprite().setTexture(texture);
-	sprite.getSprite().setPosition(sf::Vector2f(_x - texture.getSize().x / 2, _y - texture.getSize().y / 2));
+	sprite.setPosition(sf::Vector2f(_x - texture.getSize().x / 2, _y - texture.getSize().y / 2));
 }

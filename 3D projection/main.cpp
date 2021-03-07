@@ -64,6 +64,15 @@ int main()
             zegar2.restart();
             zegar.restart();
 
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+				camera.y -= 0.1f;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+				camera.y += 0.1f;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+				camera.x += 0.1f;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+				camera.x -= 0.1f;
+
 			fTheta += 0.01f;
 
 			// Rotation Z
@@ -126,7 +135,7 @@ int main()
 
 					float result = mapBetween(0, 255, abs(dProduct));
 
-					sf::Color c = { (sf::Uint8)result, (sf::Uint8)result, 0 };
+					sf::Color c = { (sf::Uint8)result, (sf::Uint8)result, 4 };
 
 					//Scale
 					tProjected.p[0].x += 1.0f; tProjected.p[0].y += 1.0f;

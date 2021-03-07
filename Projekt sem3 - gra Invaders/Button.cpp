@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-Button::Button(const std::string& displayedText, const sf::Font& textFont, const int& charSize, const sf::Color& kolor_tekstu, const int& _x, const int& _y, const int& _width, const int& _height, const int& _buttonType, int* ptr, const sf::Color& kolor_przycisku) : Text(displayedText, textFont, charSize, kolor_tekstu, _x, _y, ptr, true), buttonType(_buttonType)
+Button::Button(const std::string& displayedText, const sf::Font& textFont, const int& charSize, const sf::Color& kolor_tekstu, const int& _x, const int& _y, const int& _width, const int& _height, ButtonType _buttonType, int* ptr, const sf::Color& kolor_przycisku) : Text(displayedText, textFont, charSize, kolor_tekstu, _x, _y, ptr, true), buttonType(_buttonType)
 {
 	przycisk.setSize(sf::Vector2f(_width, _height));
 	przycisk.setFillColor(kolor_przycisku);
